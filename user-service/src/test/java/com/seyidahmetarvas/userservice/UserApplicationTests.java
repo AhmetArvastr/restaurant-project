@@ -1,4 +1,4 @@
-package com.user_service.user;
+package com.seyidahmetarvas.userservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
