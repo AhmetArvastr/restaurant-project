@@ -1,5 +1,6 @@
 package com.seyidahmetarvas.userservice.model;
 
+import com.seyidahmetarvas.userservice.common.base.BaseEntity;
 import com.seyidahmetarvas.userservice.model.enums.Gender;
 import com.seyidahmetarvas.userservice.model.enums.Status;
 import jakarta.persistence.*;
@@ -9,7 +10,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name="users")
-public class User {
+public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

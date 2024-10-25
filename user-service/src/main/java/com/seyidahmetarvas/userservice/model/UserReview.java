@@ -1,5 +1,6 @@
 package com.seyidahmetarvas.userservice.model;
 
+import com.seyidahmetarvas.userservice.common.base.BaseEntity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -8,7 +9,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "user_reviews")
-public class UserReview {
+public class UserReview extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
