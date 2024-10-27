@@ -4,7 +4,7 @@ import com.seyidahmetarvas.userservice.model.enums.Status;
 
 import java.math.BigDecimal;
 
-public record RestaurandDto(
+public record RestaurantDto(
         String id,
         String name,
         String address,

@@ -5,7 +5,7 @@ import com.seyidahmetarvas.userservice.model.enums.Status;
 
 import java.time.LocalDate;
 
-public record UserUpdateRequest(
+public record UserUpdateRequest (
         Long id,
         String name,
         String surname,
@@ -15,5 +15,5 @@ public record UserUpdateRequest(
         Status userStatus,
         double latitude,
         double longitude
-) {
+){
 }
