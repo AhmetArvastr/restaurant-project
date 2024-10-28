@@ -35,7 +35,7 @@ public class UserService {
         return converter.convert(findUserById(id));
     }
 
-    public List<UserDto> getAllUser() {
+    public List<UserDto> getAllUsers() {
 
         return userRepository.findAll()
                 .stream()
