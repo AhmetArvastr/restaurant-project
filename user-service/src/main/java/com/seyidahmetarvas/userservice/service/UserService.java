@@ -58,9 +58,14 @@ public class UserService {
     }
 
     public UserDto updateUser(UserUpdateRequest userupdateRequest) {
-        User user = findUserById(userupdateRequest.id());
         return converter.convert(
-                userRepository.save(converterToUser.convert(user,userupdateRequest))
+                userRepository.save(converterToUser.convert(
+                        findUserById(userupdateRequest.id()),userupdateRequest)
+                )
         );
+    }
+
+    public void deleteUserById(Long id) {
+        userRepository.delete(findUserById(id));
     }
 }
