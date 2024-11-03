@@ -6,6 +6,7 @@ import com.seyidahmetarvas.userservice.model.UserReview;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
@@ -36,23 +37,8 @@ public class UserReviewDetailDtoConverter {
 
                     return new UserReviewDetailDto(
                             review.getId(),
-                            review.getRestaurantId(),
-                            matchedRestaurant != null ? matchedRestaurant.id() : null,
-                            review.getComment(),
-                            review.getUserRate(),
-                            converter.convert(review.getUser())
-                    );
-                })
-                .collect(Collectors.toList());
-    }
-
-    public List<UserReviewDetailDto> convert(List<UserReview> userReviews, RestaurantDto restaurantDtos) {
-        return userReviews.stream()
-                .map(review -> {
-                    return new UserReviewDetailDto(
-                            review.getId(),
-                            review.getRestaurantId(),
-                            restaurantDtos.id(),
+                            Objects.requireNonNull(matchedRestaurant).id(),
+                            Objects.requireNonNull(matchedRestaurant).name(),
                             review.getComment(),
                             review.getUserRate(),
                             converter.convert(review.getUser())

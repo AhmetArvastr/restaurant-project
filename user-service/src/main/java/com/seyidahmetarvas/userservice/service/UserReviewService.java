@@ -10,14 +10,14 @@ import com.seyidahmetarvas.userservice.dto.response.RestaurantDto;
 import com.seyidahmetarvas.userservice.dto.response.UserReviewDetailDto;
 import com.seyidahmetarvas.userservice.dto.response.UserReviewDto;
 import com.seyidahmetarvas.userservice.exception.UserNotFoundException;
-import com.seyidahmetarvas.userservice.model.User;
 import com.seyidahmetarvas.userservice.model.UserReview;
 import com.seyidahmetarvas.userservice.repository.UserReviewRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
+@Service
 public class UserReviewService {
 
     private final UserReviewRepository repository;
@@ -26,7 +26,10 @@ public class UserReviewService {
     private final UserReviewDetailDtoConverter detailConverter;
     private final UserReviewSaveRequestConverterToUserReview toUserReview;
 
-    public UserReviewService (UserReviewRepository repository, RestaurantClient restaurantClient, UserReviewDtoConverter converter, UserReviewDetailDtoConverter detailConverter, UserReviewSaveRequestConverterToUserReview toUserReview) {
+    public UserReviewService (UserReviewRepository repository,
+                              RestaurantClient restaurantClient, UserReviewDtoConverter converter,
+                              UserReviewDetailDtoConverter detailConverter,
+                              UserReviewSaveRequestConverterToUserReview toUserReview) {
         this.repository = repository;
         this.restaurantClient = restaurantClient;
         this.converter = converter;
