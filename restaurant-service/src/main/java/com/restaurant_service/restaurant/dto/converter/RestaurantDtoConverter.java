@@ -3,10 +3,9 @@ package com.restaurant_service.restaurant.dto.converter;
 import com.restaurant_service.restaurant.dto.requests.RestaurantUpdateRequest;
 import com.restaurant_service.restaurant.dto.response.RestaurantDto;
 import com.restaurant_service.restaurant.model.Restaurant;
-import com.restaurant_service.restaurant.model.enums.Status;
+import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
-
+@Component
 public class RestaurantDtoConverter {
     public RestaurantDto convert(Restaurant restaurant) {
         return new RestaurantDto(
