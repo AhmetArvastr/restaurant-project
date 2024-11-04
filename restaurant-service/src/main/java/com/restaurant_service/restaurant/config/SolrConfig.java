@@ -17,15 +17,15 @@ import org.springframework.data.solr.repository.config.EnableSolrRepositories;
 @ComponentScan
 public class SolrConfig {
 
-    @Value("${isRunningOnDocker}")
-    boolean isRunningOnDocker;
+    /*@Value("${isRunningOnDocker}")
+    boolean isRunningOnDocker;*/
 
     @Bean
     public SolrClient solrClient() {
 
-        if (isRunningOnDocker) {
+/*        if (isRunningOnDocker) {
             return new HttpSolrClient.Builder("http://solr:8983/solr").build();
-        }
+        }*/
 
         return new HttpSolrClient.Builder("http://localhost:8983/solr").build();
     }
