@@ -58,7 +58,7 @@ public class RestaurantService {
                 .collect(Collectors.toList());
     }
 
-    public void deleteRestaurant(String id) {
+    public void deleteRestaurantById(String id) {
         repository.deleteById(findRestraurantById(id));
     }
 }
