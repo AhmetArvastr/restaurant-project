@@ -36,7 +36,6 @@ public class UserService {
     }
 
     public List<UserDto> getAllUsers() {
-
         return userRepository.findAll()
                 .stream()
                 .map(converter::convert)
