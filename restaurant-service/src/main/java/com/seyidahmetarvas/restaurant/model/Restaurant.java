@@ -11,12 +11,18 @@ import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 import org.springframework.data.elasticsearch.annotations.Setting;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Document(indexName = "restaurants")
 @Setting(settingPath = "static/es-settings.json")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Restaurant {
+public class Restaurant implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 4120885544565556119L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
@@ -87,6 +93,19 @@ public class Restaurant {
         this.longitude = longitude;
         this.restaurantRate = restaurantRate;
         this.status = status;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Restaurant that = (Restaurant) o;
+        return Double.compare(latitude, that.latitude) == 0 && Double.compare(longitude, that.longitude) == 0 && Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(address, that.address) && Objects.equals(phone, that.phone) && Objects.equals(email, that.email) && Objects.equals(website, that.website) && Objects.equals(description, that.description) && Objects.equals(workingHours, that.workingHours) && Objects.equals(restaurantRate, that.restaurantRate) && status == that.status && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt) && Objects.equals(creatorId, that.creatorId) && Objects.equals(updatedId, that.updatedId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, address, phone, email, website, description, workingHours, latitude, longitude, restaurantRate, status, createdAt, updatedAt, creatorId, updatedId);
     }
 
     public String getId() {

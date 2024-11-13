@@ -20,7 +20,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
                 description = "Source code on GitHub",
                 url = "https://www.github.com/AhmetArvastr/restaurant-project"
         ),
-        servers = {@Server(description = "user-service", url = "http://localhost:8855")}
+        servers = {@Server(description = "restaurant-service", url = "http://localhost:8855")}
 
 )
 @SecurityScheme(

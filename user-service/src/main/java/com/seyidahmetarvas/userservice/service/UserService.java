@@ -1,6 +1,7 @@
 package com.seyidahmetarvas.userservice.service;
 
 import com.seyidahmetarvas.userservice.client.RestaurantClient;
+import com.seyidahmetarvas.userservice.common.audit.AuditorImpl;
 import com.seyidahmetarvas.userservice.dto.converter.UserDtoConverter;
 import com.seyidahmetarvas.userservice.dto.converter.UserSaveRequestConverterToUser;
 import com.seyidahmetarvas.userservice.dto.request.UserSaveRequest;
@@ -53,10 +54,13 @@ public class UserService {
                 usersaveRequest.latitude(),
                 usersaveRequest.longitude());
 
+        AuditorImpl.setCurrentUser(1L);
+
         return converter.convert(userRepository.save(user));
     }
 
     public UserDto updateUser(UserUpdateRequest userupdateRequest) {
+        AuditorImpl.setCurrentUser(userupdateRequest.id());
         return converter.convert(
                 userRepository.save(converterToUser.convert(
                         findUserById(userupdateRequest.id()),userupdateRequest)
@@ -67,4 +71,5 @@ public class UserService {
     public void deleteUserById(Long id) {
         userRepository.delete(findUserById(id));
     }
+
 }
