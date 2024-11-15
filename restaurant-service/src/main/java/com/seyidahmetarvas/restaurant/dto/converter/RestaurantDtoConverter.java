@@ -23,9 +23,7 @@ public class RestaurantDtoConverter {
                 restaurant.getLatitude(),
                 restaurant.getLongitude(),
                 restaurant.getRestaurantRate(),
-                restaurant.getStatus(),
-                restaurant.getCreatedAt(),
-                restaurant.getUpdatedAt()
+                restaurant.getStatus()
         );
     }
 
@@ -45,9 +43,7 @@ public class RestaurantDtoConverter {
                     restaurant.getLatitude(),
                     restaurant.getLongitude(),
                     restaurant.getRestaurantRate(),
-                    restaurant.getStatus(),
-                    restaurant.getCreatedAt(),
-                    restaurant.getUpdatedAt()
+                    restaurant.getStatus()
             );
             restaurantDtos.add(restaurantDto);
         }

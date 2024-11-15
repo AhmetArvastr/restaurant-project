@@ -31,8 +31,8 @@ public class UserController {
             @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
     @GetMapping
-    public ResponseEntity<RestResponse<List<UserDto>>> getAllUsers() {
-        return ResponseEntity.ok(RestResponse.of(userService.getAllUsers(), "All users listed."));
+    public ResponseEntity<List<UserDto>> getAllUsers() {
+        return ResponseEntity.ok(userService.getAllUsers());
     }
 
     @Operation(summary = "GET request for a user by id", description = "Returns a user by id.")
@@ -43,8 +43,8 @@ public class UserController {
             @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<RestResponse<UserDto>> getUserById(@PathVariable @Positive Long id) {
-        return ResponseEntity.ok(RestResponse.of(userService.getUserById(id), "User listed."));
+    public ResponseEntity<UserDto> getUserById(@PathVariable @Positive Long id) {
+        return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @Operation(summary = "POST request to save a user", description = "Saves a user to database.")

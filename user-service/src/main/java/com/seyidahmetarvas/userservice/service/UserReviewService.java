@@ -47,7 +47,8 @@ public class UserReviewService {
     }
 
     public UserReviewDetailDto createUserReview(UserReviewSaveRequest request) {
-        RestaurantDto restaurantDTO = Objects.requireNonNull(restaurantClient.getRestaurantById(request.restaurantId()).getBody()).getData();
+        RestaurantDto restaurantDTO = Objects.requireNonNull(
+                restaurantClient.getRestaurantById(request.restaurantId()).getBody()).getData();
         UserReview userReview = new UserReview(
                 request.restaurantId(),
                 request.comment(),
@@ -58,33 +59,41 @@ public class UserReviewService {
     }
 
     public UserReviewDetailDto getUserReviewDetailById(Long id) {
-        RestaurantDto restaurantDto = Objects.requireNonNull(restaurantClient.getRestaurantById(findUserReviewById(id).getRestaurantId()).getBody()).getData();
+        RestaurantDto restaurantDto = Objects.requireNonNull(
+                restaurantClient.getRestaurantById(findUserReviewById(id).getRestaurantId()).getBody()).getData();
         return detailConverter.convert(findUserReviewById(id), restaurantDto);
     }
 
     public List<UserReviewDetailDto> getAllUserReviews() {
         List<UserReview> userReviews = repository.findAll();
-        List<RestaurantDto> restaurantDtos = Objects.requireNonNull(restaurantClient.getAllRestaurants().getBody()).getData();
+        List<RestaurantDto> restaurantDtos = Objects.requireNonNull(
+                restaurantClient.getAllRestaurants().getBody()).getData();
         return detailConverter.convert(userReviews,restaurantDtos);
     }
 
     public List<UserReviewDetailDto> getUserReviewsByUserId(Long userId) {
 
         List<UserReview> userReviews = repository.findByUserId(userId);
-        List <RestaurantDto> restaurantDtos = Objects.requireNonNull(restaurantClient.getAllRestaurants().getBody()).getData();
+        List <RestaurantDto> restaurantDtos = Objects.requireNonNull(
+                restaurantClient.getAllRestaurants().getBody()).getData();
         return detailConverter.convert(userReviews,restaurantDtos);
 
     }
 
     public List<UserReviewDetailDto> getUserReviewsByRestaurantId(String restaurantId) {
         List<UserReview> userReviews = repository.findByRestaurantId(restaurantId);
-        RestaurantDto restaurantDTO = Objects.requireNonNull(restaurantClient.getRestaurantById(restaurantId).getBody()).getData();
+        RestaurantDto restaurantDTO = Objects.requireNonNull(
+                restaurantClient.getRestaurantById(restaurantId).getBody()).getData();
         return detailConverter.convert(userReviews, List.of(restaurantDTO));
     }
 
     public UserReviewDetailDto editUserReview(UserReviewUpdateRequest request) {
-        RestaurantDto restaurantDto = Objects.requireNonNull(restaurantClient.getRestaurantById(findUserReviewById(request.id()).getRestaurantId()).getBody()).getData();
-        return detailConverter.convert(repository.save(toUserReview.convert(findUserReviewById(request.id()), request)), restaurantDto);
+        RestaurantDto restaurantDto = Objects.requireNonNull(
+                restaurantClient.getRestaurantById(
+                        findUserReviewById(request.id()).getRestaurantId()).getBody()).getData();
+        return detailConverter.convert(
+                repository.save(toUserReview.convert(findUserReviewById(request.id()), request)),
+                restaurantDto);
     }
 
     public void deleteUserReview(Long id) {

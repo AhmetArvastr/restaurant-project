@@ -16,8 +16,6 @@ public record RestaurantDto(
         double latitude,
         double longitude,
         Double restaurantRate,
-        Status status,
-        LocalDateTime createdAt,
-        LocalDateTime updateat
+        Status status
 ) {
 }
