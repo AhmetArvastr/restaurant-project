@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  mongodb:
+    image: mongo:6.0
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: logger
+      MONGO_INITDB_ROOT_PASSWORD: 1234
+    volumes:
+      - mongodb_data:/data/db
+
+  mongo-express:
+    image: mongo-express:1.0
+    container_name: mongo-express
+    restart: always
+    ports:
+      - "8085:8080"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: logger
+      ME_CONFIG_MONGODB_ADMINPASSWORD: 1234
+      ME_CONFIG_MONGODB_SERVER: mongodb
+
+volumes:
+  mongodb_data:

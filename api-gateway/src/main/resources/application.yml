@@ -1,11 +1,21 @@
+---
 server:
-  port: 8889
-
+  port: 8080
 spring:
   application:
     name: api-gateway
+  main:
+    web-application-type: reactive
   cloud:
+    discovery:
+      enabled: true
     gateway:
+      global-cors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedHeaders: "*"
+            allowedMethods: "*"
       routes:
         - id: user-service
           uri: lb://USER-SERVICE
@@ -15,19 +25,17 @@ spring:
           uri: lb://RESTAURANT-SERVICE
           predicates:
             - Path=/api/v1/restaurants/**
-      globalcors:
-        corsConfigurations:
-          '[/**]':
-            allowedOrigins: "*"
-            allowedHeaders: "*"
-            allowedMethods: "*"
-
 eureka:
   client:
-    registerWithEureka: true
+    register-with-eureka: true
     fetchRegistry: true
-    serviceUrl:
-      defaultZone: ${EUREKA_URI:http://discovery-server:8761/eureka}
+    service-url:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
   instance:
     hostname: api-gateway
-    preferIpAddress: true
+    prefer-ip-address: true
+# Zipkin Configuration
+management:
+  tracing:
+    sampling:
+      probability: 1.0

@@ -26,10 +26,6 @@ public class RestResponse<T>{
         return new RestResponse<>(data, true, message);
     }
 
-    public static <T> RestResponse<T> error(T data, String message) {
-        return new RestResponse<>(data, false, message);
-    }
-
     public static <T> RestResponse<T> empty(String message) {
         return new RestResponse<>(null, true, message);
     }

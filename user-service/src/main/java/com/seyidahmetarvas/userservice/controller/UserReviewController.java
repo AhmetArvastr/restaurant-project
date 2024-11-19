@@ -37,6 +37,19 @@ public class UserReviewController {
                 "User review listed successfully"), HttpStatus.OK);
     }
 
+    @Operation(summary = "GET request for user review detail by id", description = "Returns a user review detail by id.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Success"),
+            @ApiResponse(responseCode = "404", description = "Not Found<br>-User review not found"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error")
+    })
+    @GetMapping("/{id}")
+    public ResponseEntity<RestResponse<UserReviewDetailDto>> getUserReviewDetailById(@PathVariable @Positive Long id) {
+        return new ResponseEntity<>(RestResponse.of(
+                userReviewService.getUserReviewDetailById(id),
+                "User review listed successfully"), HttpStatus.OK);
+    }
+
     @Operation(summary = "POST request to create user review", description = "Creates a user review.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Created"),

@@ -10,6 +10,7 @@ import com.seyidahmetarvas.userservice.dto.response.RestaurantDto;
 import com.seyidahmetarvas.userservice.dto.response.UserReviewDetailDto;
 import com.seyidahmetarvas.userservice.dto.response.UserReviewDto;
 import com.seyidahmetarvas.userservice.exception.UserNotFoundException;
+import com.seyidahmetarvas.userservice.exception.UserReviewNotFoundException;
 import com.seyidahmetarvas.userservice.model.UserReview;
 import com.seyidahmetarvas.userservice.repository.UserReviewRepository;
 import org.springframework.stereotype.Service;
@@ -25,21 +26,23 @@ public class UserReviewService {
     private final UserReviewDtoConverter converter;
     private final UserReviewDetailDtoConverter detailConverter;
     private final UserReviewSaveRequestConverterToUserReview toUserReview;
+    private final UserService userService;
 
     public UserReviewService (UserReviewRepository repository,
                               RestaurantClient restaurantClient, UserReviewDtoConverter converter,
                               UserReviewDetailDtoConverter detailConverter,
-                              UserReviewSaveRequestConverterToUserReview toUserReview) {
+                              UserReviewSaveRequestConverterToUserReview toUserReview, UserService userService) {
         this.repository = repository;
         this.restaurantClient = restaurantClient;
         this.converter = converter;
         this.detailConverter = detailConverter;
         this.toUserReview = toUserReview;
+        this.userService = userService;
     }
 
     protected UserReview findUserReviewById(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("UserReview could not find by id: " + id));
+                .orElseThrow(() -> new UserReviewNotFoundException("UserReview could not find by id: " + id));
     }
 
     public UserReviewDto getUserReviewById(Long id) {
@@ -47,27 +50,25 @@ public class UserReviewService {
     }
 
     public UserReviewDetailDto createUserReview(UserReviewSaveRequest request) {
-        RestaurantDto restaurantDTO = Objects.requireNonNull(
-                restaurantClient.getRestaurantById(request.restaurantId()).getBody()).getData();
+        RestaurantDto restaurantDTO = restaurantClient.getRestaurantById(request.restaurantId()).getBody();
         UserReview userReview = new UserReview(
-                request.restaurantId(),
+                restaurantDTO.id(),
                 request.comment(),
                 request.userRate(),
-                request.user()
+                userService.findUserById(request.userId())
         );
         return detailConverter.convert(repository.save(userReview), restaurantDTO);
     }
 
     public UserReviewDetailDto getUserReviewDetailById(Long id) {
         RestaurantDto restaurantDto = Objects.requireNonNull(
-                restaurantClient.getRestaurantById(findUserReviewById(id).getRestaurantId()).getBody()).getData();
+                restaurantClient.getRestaurantById(findUserReviewById(id).getRestaurantId()).getBody());
         return detailConverter.convert(findUserReviewById(id), restaurantDto);
     }
 
     public List<UserReviewDetailDto> getAllUserReviews() {
         List<UserReview> userReviews = repository.findAll();
-        List<RestaurantDto> restaurantDtos = Objects.requireNonNull(
-                restaurantClient.getAllRestaurants().getBody()).getData();
+        List<RestaurantDto> restaurantDtos = restaurantClient.getAllRestaurants().getBody();
         return detailConverter.convert(userReviews,restaurantDtos);
     }
 
@@ -75,7 +76,7 @@ public class UserReviewService {
 
         List<UserReview> userReviews = repository.findByUserId(userId);
         List <RestaurantDto> restaurantDtos = Objects.requireNonNull(
-                restaurantClient.getAllRestaurants().getBody()).getData();
+                restaurantClient.getAllRestaurants().getBody());
         return detailConverter.convert(userReviews,restaurantDtos);
 
     }
@@ -83,14 +84,14 @@ public class UserReviewService {
     public List<UserReviewDetailDto> getUserReviewsByRestaurantId(String restaurantId) {
         List<UserReview> userReviews = repository.findByRestaurantId(restaurantId);
         RestaurantDto restaurantDTO = Objects.requireNonNull(
-                restaurantClient.getRestaurantById(restaurantId).getBody()).getData();
+                restaurantClient.getRestaurantById(restaurantId).getBody());
         return detailConverter.convert(userReviews, List.of(restaurantDTO));
     }
 
     public UserReviewDetailDto editUserReview(UserReviewUpdateRequest request) {
         RestaurantDto restaurantDto = Objects.requireNonNull(
                 restaurantClient.getRestaurantById(
-                        findUserReviewById(request.id()).getRestaurantId()).getBody()).getData();
+                        findUserReviewById(request.id()).getRestaurantId()).getBody());
         return detailConverter.convert(
                 repository.save(toUserReview.convert(findUserReviewById(request.id()), request)),
                 restaurantDto);

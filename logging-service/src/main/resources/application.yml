@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: logging-service
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: log-consumer-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  data:
+    mongodb:
+      uri: mongodb://logger:1234@localhost:27017/admin
+server:
+  port: 8083

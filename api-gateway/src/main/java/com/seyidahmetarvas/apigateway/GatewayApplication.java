@@ -7,9 +7,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
-@EnableDiscoveryClient
-@CrossOrigin(origins = "http://localhost:5173")
-@RestController
 public class GatewayApplication {
 
 	public static void main(String[] args) {

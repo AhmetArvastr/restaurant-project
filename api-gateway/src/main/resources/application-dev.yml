@@ -7,13 +7,3 @@ eureka:
   instance:
     hostname: localhost
     preferIpAddress: true
-
-spring:
-  cloud:
-    gateway:
-      globalcors:
-        corsConfigurations:
-          '[/**]':
-            allowedOrigins: "*"
-            allowedHeaders: "*"
-            allowedMethods: "*"

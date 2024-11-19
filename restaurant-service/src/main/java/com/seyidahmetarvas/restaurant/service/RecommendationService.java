@@ -6,10 +6,8 @@ import com.seyidahmetarvas.restaurant.dto.response.RecommendationDto;
 import com.seyidahmetarvas.restaurant.dto.response.RestaurantDto;
 import com.seyidahmetarvas.restaurant.dto.response.RestaurantWithScoreDto;
 import com.seyidahmetarvas.restaurant.engine.RecommendationEngine;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
