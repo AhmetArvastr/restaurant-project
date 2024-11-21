@@ -1,6 +1,5 @@
 package com.seyidahmetarvas.userservice.common.audit;
 
-import com.seyidahmetarvas.userservice.dto.request.UserUpdateRequest;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +19,7 @@ public class AuditorImpl implements AuditorAware<Long> {
         return Optional.ofNullable(currentUser.get());
     }
 
-    public static void clear() {
+/*    public static void clear() {
         currentUser.remove();
-    }
+    }*/
 }

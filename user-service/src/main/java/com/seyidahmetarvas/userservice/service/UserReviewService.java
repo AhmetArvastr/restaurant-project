@@ -90,11 +90,9 @@ public class UserReviewService {
 
     public UserReviewDetailDto editUserReview(UserReviewUpdateRequest request) {
         RestaurantDto restaurantDto = Objects.requireNonNull(
-                restaurantClient.getRestaurantById(
-                        findUserReviewById(request.id()).getRestaurantId()).getBody());
+                restaurantClient.getRestaurantById(findUserReviewById(request.id()).getRestaurantId()).getBody());
         return detailConverter.convert(
-                repository.save(toUserReview.convert(findUserReviewById(request.id()), request)),
-                restaurantDto);
+                repository.save(toUserReview.convert(findUserReviewById(request.id()), request)),restaurantDto);
     }
 
     public void deleteUserReview(Long id) {

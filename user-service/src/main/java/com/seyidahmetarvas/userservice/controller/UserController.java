@@ -32,7 +32,7 @@ public class UserController {
     })
     @GetMapping
     public ResponseEntity<RestResponse<List<UserDto>>> getAllUsers() {
-        return ResponseEntity.ok(RestResponse.of(userService.getAllUsers(), "All user listed"));
+        return ResponseEntity.ok(RestResponse.of(userService.getAllUsers(), "Users listed successfully"));
     }
 
     @Operation(summary = "GET request for a user by id", description = "Returns a user by id.")
@@ -44,7 +44,7 @@ public class UserController {
     })
     @GetMapping("/{id}")
     public ResponseEntity<RestResponse<UserDto>> getUserById(@PathVariable @Positive Long id) {
-        return ResponseEntity.ok(RestResponse.of(userService.getUserById(id), "User by id: "+id));
+        return ResponseEntity.ok(RestResponse.of(userService.getUserById(id), "User listed by id successfully"));
     }
 
     @Operation(summary = "POST request to save a user", description = "Saves a user to database.")
@@ -59,7 +59,7 @@ public class UserController {
         return ResponseEntity.ok(RestResponse.of(userService.createUser(request), "User saved."));
     }
 
-    @Operation(summary = "PUT request to update a user", description = "Updates a user in database.")
+/*    @Operation(summary = "PUT request to update a user", description = "Updates a user in database.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success"),
             @ApiResponse(responseCode = "401", description = "Unauthorized<br>-Token invalid (wrong or expired token)"),
@@ -69,6 +69,18 @@ public class UserController {
     @PutMapping("/{debugId}")
     public ResponseEntity<RestResponse<UserDto>> updateUser(@PathVariable Long debugId, @Valid @RequestBody UserUpdateRequest request) {
         return ResponseEntity.ok(RestResponse.of(userService.updateUser(request), "User updated."));
+    }*/
+
+    @Operation(summary = "PUT request to update a user", description = "Updated a user from database.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Success"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized<br>-Token invalid (wrong or expired token)"),
+            @ApiResponse(responseCode = "404", description = "Not Found<br>-User not found"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error")
+    })
+    @PutMapping
+    public ResponseEntity<RestResponse<UserDto>> deleteUser(@Valid @RequestBody UserUpdateRequest request) {
+        return ResponseEntity.ok(RestResponse.of(userService.updateUser(request), "User updated successfully"));
     }
 
     @Operation(summary = "DELETE request to delete a user", description = "Deletes a user from database.")
