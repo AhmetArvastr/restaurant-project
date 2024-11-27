@@ -67,7 +67,7 @@ public class UserController {
             @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
     @PutMapping
-    public ResponseEntity<RestResponse<UserDto>> deleteUser(@Valid @RequestBody UserUpdateRequest request) {
+    public ResponseEntity<RestResponse<UserDto>> updateUser(@Valid @RequestBody UserUpdateRequest request) {
         return ResponseEntity.ok(RestResponse.of(userService.updateUser(request), "User updated successfully"));
     }
 

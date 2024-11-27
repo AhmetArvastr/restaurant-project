@@ -6,6 +6,7 @@ import com.seyidahmetarvas.userservice.model.enums.Status;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -45,6 +46,18 @@ public class User extends BaseEntity {
     }
 
     public User(String name, String surname, LocalDate birthDate, String email, Gender gender, Status userStatus, double latitude, double longitude) {
+        this.name = name;
+        this.surname = surname;
+        this.birthDate = birthDate;
+        this.email = email;
+        this.gender = gender;
+        this.userStatus = userStatus;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    public User(Long id, String name, String surname, LocalDate birthDate, String email, Gender gender, Status userStatus, double latitude, double longitude) {
+        this.id = id;
         this.name = name;
         this.surname = surname;
         this.birthDate = birthDate;
