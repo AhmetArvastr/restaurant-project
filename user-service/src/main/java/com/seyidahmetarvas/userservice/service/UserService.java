@@ -1,6 +1,5 @@
 package com.seyidahmetarvas.userservice.service;
 
-import com.seyidahmetarvas.userservice.client.RestaurantClient;
 import com.seyidahmetarvas.userservice.common.audit.AuditorImpl;
 import com.seyidahmetarvas.userservice.dto.converter.UserDtoConverter;
 import com.seyidahmetarvas.userservice.dto.converter.UserSaveRequestConverterToUser;

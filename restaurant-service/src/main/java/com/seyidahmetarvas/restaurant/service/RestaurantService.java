@@ -1,6 +1,6 @@
 package com.seyidahmetarvas.restaurant.service;
 
-import com.seyidahmetarvas.restaurant.client.UserClient;
+/*import com.seyidahmetarvas.restaurant.client.UserClient;*/
 import com.seyidahmetarvas.restaurant.dto.converter.RestaurantDtoConverter;
 import com.seyidahmetarvas.restaurant.dto.requests.RestaurantSaveRequest;
 import com.seyidahmetarvas.restaurant.dto.requests.RestaurantUpdateRequest;
@@ -18,7 +18,7 @@ public class RestaurantService {
     private final RestaurantDtoConverter converter;
     private final RestaurantRepository restaurantRepository;
 
-    public RestaurantService(RestaurantDtoConverter converter, RestaurantRepository restaurantRepository, UserClient userClient) {
+    public RestaurantService(RestaurantDtoConverter converter, RestaurantRepository restaurantRepository) {
         this.converter = converter;
         this.restaurantRepository = restaurantRepository;
     }

@@ -1,8 +1,5 @@
 package com.seyidahmetarvas.userservice.dto.request;
 
-import com.seyidahmetarvas.userservice.dto.response.UserDto;
-import com.seyidahmetarvas.userservice.model.User;
-
 import java.math.BigDecimal;
 
 public record UserReviewSaveRequest(

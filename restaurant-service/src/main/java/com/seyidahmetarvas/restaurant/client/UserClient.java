@@ -1,5 +1,6 @@
 package com.seyidahmetarvas.restaurant.client;
 
+import com.seyidahmetarvas.restaurant.common.RestResponse;
 import com.seyidahmetarvas.restaurant.dto.response.UserDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +12,8 @@ import java.util.List;
 @FeignClient(name = "USER-SERVICE",path = "/api/v1/users")
 public interface UserClient {
     @GetMapping("/{id}")
-    ResponseEntity<UserDto> getUserById(@PathVariable Long id);
+    ResponseEntity<RestResponse<UserDto>> getUserById(@PathVariable Long id);
 
     @GetMapping
-    ResponseEntity<List<UserDto>> getAllUsers();
+    ResponseEntity<RestResponse<List<UserDto>>> getAllUsers();
 }

@@ -12,6 +12,7 @@ import com.seyidahmetarvas.userservice.dto.response.UserReviewDto;
 import com.seyidahmetarvas.userservice.exception.UserNotFoundException;
 import com.seyidahmetarvas.userservice.exception.UserReviewNotFoundException;
 import com.seyidahmetarvas.userservice.model.UserReview;
+import com.seyidahmetarvas.userservice.model.enums.Status;
 import com.seyidahmetarvas.userservice.repository.UserReviewRepository;
 import org.springframework.stereotype.Service;
 
@@ -27,17 +28,21 @@ public class UserReviewService {
     private final UserReviewDetailDtoConverter detailConverter;
     private final UserReviewSaveRequestConverterToUserReview toUserReview;
     private final UserService userService;
+    private final KafkaProducerService kafka;
 
     public UserReviewService (UserReviewRepository repository,
                               RestaurantClient restaurantClient, UserReviewDtoConverter converter,
                               UserReviewDetailDtoConverter detailConverter,
-                              UserReviewSaveRequestConverterToUserReview toUserReview, UserService userService) {
+                              UserReviewSaveRequestConverterToUserReview toUserReview,
+                              UserService userService,
+                              KafkaProducerService kafka) {
         this.repository = repository;
         this.restaurantClient = restaurantClient;
         this.converter = converter;
         this.detailConverter = detailConverter;
         this.toUserReview = toUserReview;
         this.userService = userService;
+        this.kafka = kafka;
     }
 
     protected UserReview findUserReviewById(Long id) {
@@ -50,6 +55,9 @@ public class UserReviewService {
     }
 
     public UserReviewDetailDto createUserReview(UserReviewSaveRequest request) {
+        if(userService.getUserById(request.userId()).userStatus().equals(Status.INACTIVE)){
+            throw new UserNotFoundException("Your review could not be created");
+        }
         RestaurantDto restaurantDTO = restaurantClient.getRestaurantById(request.restaurantId()).getBody();
         UserReview userReview = new UserReview(
                 restaurantDTO.id(),
@@ -97,5 +105,6 @@ public class UserReviewService {
 
     public void deleteUserReview(Long id) {
         repository.deleteById(findUserReviewById(id).getId());
+        kafka.userMessage(findUserReviewById(id).getUser().getName(),"deleted");
     }
 }

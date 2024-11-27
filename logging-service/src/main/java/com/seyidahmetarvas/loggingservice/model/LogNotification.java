@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDateTime;
 
 @Document(collection = "errorlogdoc")
-public class ErrorLog {
+public class LogNotification {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +16,8 @@ public class ErrorLog {
     private final LocalDateTime date;
     private final String message;
 
-    private ErrorLog(Builder builder) {
+
+    private LogNotification(Builder builder) {
         this.date = builder.date;
         this.message = builder.message;
     }
@@ -47,8 +48,8 @@ public class ErrorLog {
             return this;
         }
 
-        public ErrorLog build() {
-            return new ErrorLog(this);
+        public LogNotification build() {
+            return new LogNotification(this);
         }
     }
 }

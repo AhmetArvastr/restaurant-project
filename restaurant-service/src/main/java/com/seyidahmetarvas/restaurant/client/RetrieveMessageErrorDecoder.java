@@ -1,7 +1,7 @@
-package com.seyidahmetarvas.userservice.client;
+package com.seyidahmetarvas.restaurant.client;
 
-import com.seyidahmetarvas.userservice.exception.ExceptionMessage;
-import com.seyidahmetarvas.userservice.exception.RestaurantNotFoundException;
+import com.seyidahmetarvas.restaurant.exception.ExceptionMessage;
+import com.seyidahmetarvas.restaurant.exception.UserNotFoundException;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 import io.micrometer.core.instrument.util.IOUtils;
@@ -15,7 +15,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class RetrieveMessageErrorDecoder implements ErrorDecoder {
-
     private final ErrorDecoder errorDecoder = new Default();
 
     @Override
@@ -33,7 +32,7 @@ public class RetrieveMessageErrorDecoder implements ErrorDecoder {
         }
         switch (response.status()) {
             case 404:
-                throw new RestaurantNotFoundException(message);
+                throw new UserNotFoundException(message);
             default:
                 return errorDecoder.decode(methodKey, response);
         }

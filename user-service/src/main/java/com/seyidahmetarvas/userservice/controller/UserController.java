@@ -59,18 +59,6 @@ public class UserController {
         return ResponseEntity.ok(RestResponse.of(userService.createUser(request), "User saved."));
     }
 
-/*    @Operation(summary = "PUT request to update a user", description = "Updates a user in database.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Success"),
-            @ApiResponse(responseCode = "401", description = "Unauthorized<br>-Token invalid (wrong or expired token)"),
-            @ApiResponse(responseCode = "404", description = "Not Found<br>-User not found"),
-            @ApiResponse(responseCode = "500", description = "Internal Server Error")
-    })
-    @PutMapping("/{debugId}")
-    public ResponseEntity<RestResponse<UserDto>> updateUser(@PathVariable Long debugId, @Valid @RequestBody UserUpdateRequest request) {
-        return ResponseEntity.ok(RestResponse.of(userService.updateUser(request), "User updated."));
-    }*/
-
     @Operation(summary = "PUT request to update a user", description = "Updated a user from database.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success"),

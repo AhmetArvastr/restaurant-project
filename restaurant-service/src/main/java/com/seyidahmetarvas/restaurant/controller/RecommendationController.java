@@ -40,7 +40,7 @@ public class RecommendationController {
             @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
     @GetMapping
-    public ResponseEntity<List<RecommendationDto>> getRecommendationByUserId() {
+    public ResponseEntity<List<RecommendationDto>> getRecommendationsWithUsers() {
         return ResponseEntity.ok(recommendationService.getAllRecommendationsWithAllUsers());
     }
 }

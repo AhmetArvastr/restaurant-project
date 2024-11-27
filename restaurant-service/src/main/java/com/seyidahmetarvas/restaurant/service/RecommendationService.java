@@ -1,5 +1,6 @@
 package com.seyidahmetarvas.restaurant.service;
 
+/*import com.seyidahmetarvas.restaurant.client.UserClient;*/
 import com.seyidahmetarvas.restaurant.client.UserClient;
 import com.seyidahmetarvas.restaurant.dto.response.UserDto;
 import com.seyidahmetarvas.restaurant.dto.response.RecommendationDto;
@@ -24,7 +25,7 @@ public class RecommendationService {
     }
 
     public List<RecommendationDto> getAllRecommendationsWithAllUsers() {
-        List<UserDto> users = Optional.ofNullable(userClient.getAllUsers().getBody())
+        List<UserDto> users = Optional.ofNullable(userClient.getAllUsers().getBody().getData())
                 .orElseThrow(() -> new IllegalArgumentException("No users found"));
 
         List<RestaurantDto> restaurants = restaurantService.getAllRestaurants();
@@ -42,7 +43,7 @@ public class RecommendationService {
     }
 
     public RecommendationDto getRecommendationByUserId(Long userId) {
-        UserDto userDto = userClient.getUserById(userId).getBody();
+        UserDto userDto = userClient.getUserById(userId).getBody().getData();
 
         double userLat = userDto.latitude();
         double userLon = userDto.longitude();

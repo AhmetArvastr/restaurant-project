@@ -18,8 +18,4 @@ public class AuditorImpl implements AuditorAware<Long> {
     public Optional<Long> getCurrentAuditor() {
         return Optional.ofNullable(currentUser.get());
     }
-
-/*    public static void clear() {
-        currentUser.remove();
-    }*/
 }
