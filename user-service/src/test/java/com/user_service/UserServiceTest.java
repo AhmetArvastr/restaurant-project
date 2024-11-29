@@ -5,6 +5,7 @@ import com.seyidahmetarvas.userservice.dto.converter.UserSaveRequestConverterToU
 import com.seyidahmetarvas.userservice.dto.request.UserSaveRequest;
 import com.seyidahmetarvas.userservice.dto.request.UserUpdateRequest;
 import com.seyidahmetarvas.userservice.dto.response.UserDto;
+import com.seyidahmetarvas.userservice.exception.UserNotFoundException;
 import com.seyidahmetarvas.userservice.model.User;
 import com.seyidahmetarvas.userservice.model.enums.Gender;
 import com.seyidahmetarvas.userservice.model.enums.Status;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class UserServiceTest {
 
@@ -49,7 +51,7 @@ class UserServiceTest {
                 userId,"test", "test",
                 LocalDate.of(1990, 1, 1), "test@gmail.com", Gender.MALE, Status.ACTIVE, 1.0, -1.0);
         UserDto userDto = new UserDto(
-                userId, "test", "test",
+                "test", "test",
                 LocalDate.of(1990, 1, 1),"test@gmail.com",Gender.MALE,Status.ACTIVE,1.0,-1.0);
 
         Mockito.when(userRepository.save(Mockito.any(User.class))).thenReturn(user);
@@ -71,7 +73,7 @@ class UserServiceTest {
                 userId,"test", "test",
                 LocalDate.of(1990, 1, 1), "test@gmail.com", Gender.MALE, Status.ACTIVE, 1.0, -1.0);
         UserDto userDto = new UserDto(
-                userId, "test", "test",
+                "test", "test",
                 LocalDate.of(1990, 1, 1),"test@gmail.com",Gender.MALE,Status.ACTIVE,1.0,-1.0);
 
         Mockito.when(userRepository.findById(userId)).thenReturn(Optional.of(user));
@@ -81,7 +83,7 @@ class UserServiceTest {
 
         assertEquals(userDto, result);
 
-        Mockito.verify(userRepository).findById(Mockito.any(Long.class));
+        Mockito.verify(userRepository).findById(userId);
         Mockito.verify(converter).convert(user);
     }
 
@@ -95,8 +97,8 @@ class UserServiceTest {
         );
 
         List<UserDto> userDtos = List.of(
-                new UserDto(userId,"John", "Doe", LocalDate.of(1990, 1, 1), "john.doe@example.com", Gender.MALE, Status.ACTIVE,1.0, -1.0),
-                new UserDto(userId,"Jane", "Doe", LocalDate.of(1992, 2, 2), "jane.doe@example.com", Gender.FEMALE, Status.ACTIVE,1.0, -1.0)
+                new UserDto("John", "Doe", LocalDate.of(1990, 1, 1), "john.doe@example.com", Gender.MALE, Status.ACTIVE,1.0, -1.0),
+                new UserDto("Jane", "Doe", LocalDate.of(1992, 2, 2), "jane.doe@example.com", Gender.FEMALE, Status.ACTIVE,1.0, -1.0)
         );
 
         Mockito.when(userRepository.findAll()).thenReturn(users);
@@ -127,7 +129,7 @@ class UserServiceTest {
                 userId,"test2", "test2",
                 LocalDate.of(1990, 1, 1), "test2@gmail.com", Gender.FEMALE, Status.INACTIVE, 3.0, -3.0);
         UserDto userDto = new UserDto(
-                userId,"test2", "test2",
+                "test2", "test2",
                 LocalDate.of(1990, 1, 1), "test2@gmail.com", Gender.FEMALE, Status.INACTIVE, 3.0, -3.0);
 
         Mockito.when(userRepository.findById(request.id())).thenReturn(Optional.of(user));
@@ -145,15 +147,36 @@ class UserServiceTest {
         Mockito.verify(converter).convert(updater);
     }
 
-    @DisplayName("deleteUserById should return UserDto when the UserSaveRequest parameters are present.")
+    @DisplayName("deleteUserById should delete User when UserId parameter present.")
     @Test
     void shoulddeleteUserwhenuserIdparameterpresent(){
         Long userId = 1L;
 
-        Mockito.doNothing().when(userRepository).deleteById(Mockito.anyLong());
+        User user = new User(
+                userId,"test", "test",
+                LocalDate.of(1990, 1, 1), "test@gmail.com", Gender.MALE, Status.ACTIVE, 1.0, -1.0);
+
+        Mockito.when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+        Mockito.doNothing().when(userRepository).delete(user);
 
         userService.deleteUserById(userId);
 
-        Mockito.verify(userRepository).deleteById(Mockito.any(Long.class));
+        Mockito.verify(userRepository).findById(userId);
+        Mockito.verify(userRepository).delete(user);
+    }
+
+    @DisplayName("should Throw UserNotFoundException when the parameter of the getUserById userId Does Not Exist")
+    @Test
+    void shouldThrowUserNotFoundException_whenuserIdDoesNotExist() {
+
+        Long userId = 1L;
+
+        Mockito.when(userRepository.findById(userId)).thenReturn(Optional.empty());
+
+        assertThrows(UserNotFoundException.class,
+                () -> userService.getUserById(userId));
+
+        Mockito.verify(userRepository).findById(userId);
+        Mockito.verifyNoInteractions(converter);
     }
 }

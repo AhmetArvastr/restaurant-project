@@ -19,7 +19,6 @@ public class UserReviewDetailDtoConverter {
 
     public UserReviewDetailDto convert(UserReview userReview, RestaurantDto restaurantDto) {
         return new UserReviewDetailDto(
-                userReview.getId(),
                 userReview.getRestaurantId(),
                 restaurantDto.name(),
                 userReview.getComment(),
@@ -36,9 +35,22 @@ public class UserReviewDetailDtoConverter {
                             .orElse(null);
 
                     return new UserReviewDetailDto(
-                            review.getId(),
                             Objects.requireNonNull(matchedRestaurant).id(),
                             Objects.requireNonNull(matchedRestaurant).name(),
+                            review.getComment(),
+                            review.getUserRate(),
+                            converter.convert(review.getUser())
+                    );
+                })
+                .collect(Collectors.toList());
+    }
+
+    public List<UserReviewDetailDto> convert(List<UserReview> userReviews, RestaurantDto restaurantDto) {
+        return userReviews.stream()
+                .map(review -> {
+                    return new UserReviewDetailDto(
+                            Objects.requireNonNull(restaurantDto).id(),
+                            Objects.requireNonNull(restaurantDto).name(),
                             review.getComment(),
                             review.getUserRate(),
                             converter.convert(review.getUser())

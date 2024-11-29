@@ -26,7 +26,7 @@ public class UserService {
         this.converterToUser = converterToUser;
     }
 
-    public User findUserById(Long id) {
+    protected User findUserById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User could not find by id: " + id));
     }
@@ -68,7 +68,7 @@ public class UserService {
     }
 
     public void deleteUserById(Long id) {
-        userRepository.deleteById(id);
+        userRepository.delete(findUserById(id));
     }
 
 }
