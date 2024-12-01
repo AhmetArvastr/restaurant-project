@@ -40,9 +40,9 @@ class UserServiceTest {
         userService = new UserService(userRepository, converter, saveRequestConverter);
     }
 
-    @DisplayName("createUser should return UserDto when the UserSaveRequest parameters are present.")
+    @DisplayName("should return UserDto when the parameter of the createUser UserSaveRequest Exist")
     @Test
-    void shouldreturnUserDtowhenUserSaveRequestparametersarepresent(){
+    void shouldReturnUserDto_whenUserSaveRequestExist(){
         Long userId = 1L;
         UserSaveRequest request = new UserSaveRequest(
                 "test", "test",
@@ -65,9 +65,9 @@ class UserServiceTest {
         Mockito.verify(converter).convert(user);
     }
 
-    @DisplayName("getUserById should return UserDto when the userId parameter are present.")
+    @DisplayName("should Return UserDto when the parameter of the getUserById userId Exist")
     @Test
-    void shouldreturnUserDtowhenuserIdparameterarepresent(){
+    void shouldReturnUserDto_whenUserIdExist(){
         Long userId = 1L;
         User user = new User(
                 userId,"test", "test",
@@ -87,9 +87,9 @@ class UserServiceTest {
         Mockito.verify(converter).convert(user);
     }
 
-    @DisplayName("getAllUsers should return a UserDto list if User is a list.")
+    @DisplayName("should return the UserDto list")
     @Test
-    void shouldreturnlistofUserDtowhenUseralist(){
+    void shouldReturnUserDtoList(){
         Long userId = 1L;
         List<User> users = List.of(
                 new User(userId,"John", "Doe", LocalDate.of(1990, 1, 1), "john.doe@example.com", Gender.MALE, Status.ACTIVE, 1.0, -1.0),
@@ -115,9 +115,9 @@ class UserServiceTest {
         Mockito.verify(converter, Mockito.times(2)).convert(Mockito.any(User.class));
     }
 
-    @DisplayName("updateUser should return UserDto when the UserUpdateRequest parameters are present.")
+    @DisplayName("should Return UserDto when the parameter of the updateUser UserUpdateRequest Exist")
     @Test
-    void shouldreturnUserDtowhenUserUpdateRequestparameterssarepresent(){
+    void shouldReturnUserDto_whenUserUpdateRequestExist(){
         Long userId = 1L;
         UserUpdateRequest request = new UserUpdateRequest(
                 userId,"test2", "test2",
@@ -147,9 +147,9 @@ class UserServiceTest {
         Mockito.verify(converter).convert(updater);
     }
 
-    @DisplayName("deleteUserById should delete User when UserId parameter present.")
+    @DisplayName("Should delete Userr when the parameter of the deleteUserById UserId Exist")
     @Test
-    void shoulddeleteUserwhenuserIdparameterpresent(){
+    void shouldDeleteUser_whenUserIdExist(){
         Long userId = 1L;
 
         User user = new User(

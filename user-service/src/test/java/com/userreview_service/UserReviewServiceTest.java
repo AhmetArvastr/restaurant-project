@@ -1,7 +1,6 @@
 package com.userreview_service;
 
 import com.seyidahmetarvas.userservice.client.RestaurantClient;
-import com.seyidahmetarvas.userservice.client.RetrieveMessageErrorDecoder;
 import com.seyidahmetarvas.userservice.dto.converter.*;
 import com.seyidahmetarvas.userservice.dto.request.UserReviewSaveRequest;
 import com.seyidahmetarvas.userservice.dto.request.UserReviewUpdateRequest;
@@ -9,7 +8,6 @@ import com.seyidahmetarvas.userservice.dto.response.RestaurantDto;
 import com.seyidahmetarvas.userservice.dto.response.UserDto;
 import com.seyidahmetarvas.userservice.dto.response.UserReviewDetailDto;
 import com.seyidahmetarvas.userservice.dto.response.UserReviewDto;
-import com.seyidahmetarvas.userservice.exception.RestaurantNotFoundException;
 import com.seyidahmetarvas.userservice.exception.UserNotActiveException;
 import com.seyidahmetarvas.userservice.exception.UserReviewNotFoundException;
 import com.seyidahmetarvas.userservice.model.User;
@@ -19,9 +17,6 @@ import com.seyidahmetarvas.userservice.model.enums.Status;
 import com.seyidahmetarvas.userservice.repository.UserReviewRepository;
 import com.seyidahmetarvas.userservice.service.UserReviewService;
 import com.seyidahmetarvas.userservice.service.UserService;
-import feign.FeignException;
-import feign.Request;
-import feign.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,7 +26,6 @@ import org.springframework.http.ResponseEntity;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -60,9 +54,9 @@ public class UserReviewServiceTest {
         userReviewService = new UserReviewService(repository, restaurantClient, converter, detailConverter, toUserReview, userService);
     }
 
-    @DisplayName("getUserReviewById should return UserReviewDto when the userReviewId parameter are present.")
+    @DisplayName("should Return UserReviewDto with UserDto when the parameter of the getUserReviewById UserReviewId Exist")
     @Test
-    void shouldreturnUserReviewDtowhenUserIdparametersarepresent(){
+    void shouldReturnUserReviewWithUserDto_whenUserReviewIdExist(){
         Long userReviewId = 1L;
         Long userId = 1L;
 
@@ -86,9 +80,9 @@ public class UserReviewServiceTest {
         Mockito.verify(converter).convert(userReview);
     }
 
-    @DisplayName("createUserReview should return UserReviewDetailDto when the UserReviewSaveRequest parameters are present.")
+    @DisplayName("should Return UserReviewDetailDto with UserDto with RestaurantId with RestaurantName And Create UserReview when the parameter of the createUserReview UserReviewSaveRequest Exist")
     @Test
-    void shouldCreateUserReviewWhenRequestparametersarepresent() {
+    void shouldReturnUserReviewDetailDtoWithUserDto_whenUserReviewSaveRequestExist() {
         Long userId = 1L;
         String restaurantId = "test";
 
@@ -121,9 +115,9 @@ public class UserReviewServiceTest {
         Mockito.verify(detailConverter).convert(userReview, restaurantDto);
     }
 
-    @DisplayName("getUserReviewDetailById should return UserReviewDetailDto when the userReviewId parameter are present.")
+    @DisplayName("should Return UserReviewDetailDto with UserDto with RestaurantId and RestaurantName when the parameter of the getUseReviewDetailById UserReviewId Exist")
     @Test
-    void shouldGetUserReviewDetailByIdwhenuserRewiewIdparameterarepresent() {
+    void shouldReturnUserReviewDetailDtoWithUserDtoWithRestaurantId_whenUserReviewIdExist() {
         Long userId = 1L;
         Long userReviewId = 1L;
         String restaurantId = "test";
@@ -153,9 +147,9 @@ public class UserReviewServiceTest {
         Mockito.verify(detailConverter).convert(userReview, restaurantDto);
     }
 
-    @DisplayName("getAllUserReviews should return UserReviewDetailDto with the Restaurants")
+    @DisplayName("should Return the UserReviewDetailDto list with UserDto with RestaurantId and RestaurantName")
     @Test
-    void shouldgetAllUserReviewsWithResturants(){
+    void shouldReturnUserReviewDetailDtoListWithUserDtoWithRestaurantIdAndRestaurantName(){
         Long userId = 1L;
         String restaurantId = "test";
 
@@ -188,9 +182,9 @@ public class UserReviewServiceTest {
         Mockito.verify(detailConverter).convert(userReviews, restaurantDtos);
     }
 
-    @DisplayName("getAllUserReviewsByUserId should return UserReviewDetailDto with Restaurants when the userId parameter are present.")
+    @DisplayName("should Return the UserReviewDetailDto list with UserDto with RestaurantId and RestaurantName when the parameter of the getUseReviewDetailByUserId UserId Exist")
     @Test
-    void shouldgetUserReviewsByUserIdWithResturants(){
+    void shouldReturnUserReviewDetailListWithUserDtowithRestaurantIdAndRestaurantName_whenUserIdExist(){
         Long userId = 1L;
         String restaurantId = "test";
 
@@ -223,9 +217,9 @@ public class UserReviewServiceTest {
         Mockito.verify(detailConverter).convert(userReviews, restaurantDtos);
     }
 
-    @DisplayName("getAllUserReviewsByRestaurantId should return UserReviewDetailDto with Restaurants when the restaurantId parameter are present.")
+    @DisplayName("should Return the UserReviewDetailDto with UserDto with RestaurantId and RestaurantName when the parameter of the editUserReview UserReviewUpdateRequest Exist")
     @Test
-    void shouldgetUserReviewsByRestaurantIdWithResturant(){
+    void shouldReturnUserReviewDetailDtoWithUserDtoWithRestaurantIdAndRestaurantName_whenUserReviewsUpdateRequestExist(){
         Long userId = 1L;
         Long userReviewId = 1L;
         String restaurantId = "test";
@@ -262,9 +256,9 @@ public class UserReviewServiceTest {
         Mockito.verify(detailConverter).convert(userReview, restaurantDto);
     }
 
-    @DisplayName("deleteUserReviewById should delete UserReview when userReviewId parameter present.")
+    @DisplayName("should Delete UserReview when the parameter of the deleteUserReview UserReviewId Exist")
     @Test
-    void shoulddeleteUserReviewwhenuserIdparameterpresent(){
+    void shouldDeleteUserReview_whenUserReviewIdExist(){
         Long userReviewId = 1L;
         Long userId = 1L;
         String restaurantId = "test";
@@ -286,7 +280,7 @@ public class UserReviewServiceTest {
 
     @DisplayName("should Throw UserReviewNotFoundException when the parameter of the getUserReviewById with userId Does Not Exist")
     @Test
-    void shouldThrowUserReviewNotFoundException_whenuserReviewsIdDoesNotExist() {
+    void shouldThrowUserReviewNotFoundException_whenUserReviewIdDoesNotExist() {
 
         Long userReviewId= 1L;
 
@@ -304,7 +298,7 @@ public class UserReviewServiceTest {
 
     @DisplayName("should throw UserNotActiveException when getUserStatus is Inactive")
     @Test
-    void shouldThrowUserNotActiveException_whenUserStausIsInactive() {
+    void shouldThrowUserNotActiveException_whenUserStatusIsInactive() {
         Long userId = 1L;
         String restaurantId = "test";
 
