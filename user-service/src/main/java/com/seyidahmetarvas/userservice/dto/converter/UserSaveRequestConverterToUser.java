@@ -1,6 +1,5 @@
 package com.seyidahmetarvas.userservice.dto.converter;
 
-import com.seyidahmetarvas.userservice.dto.request.UserSaveRequest;
 import com.seyidahmetarvas.userservice.dto.request.UserUpdateRequest;
 import com.seyidahmetarvas.userservice.model.User;
 import org.springframework.stereotype.Component;

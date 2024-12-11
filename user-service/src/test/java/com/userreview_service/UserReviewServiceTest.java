@@ -64,7 +64,7 @@ public class UserReviewServiceTest {
                 userId,"test", "test",
                 LocalDate.of(1990, 1, 1), "test@gmail.com", Gender.MALE, Status.ACTIVE, 1.0, -1.0);
         UserDto userdto = new UserDto(
-                "test", "test",
+                userId, "test", "test",
                 LocalDate.of(1990, 1, 1), "test@gmail.com", Gender.MALE, Status.ACTIVE, 1.0, -1.0);
         UserReview userReview = new UserReview("test","test", BigDecimal.valueOf(0),user);
         UserReviewDto userReviewDto = new UserReviewDto("test", "test", BigDecimal.valueOf(0), userdto);
@@ -91,7 +91,7 @@ public class UserReviewServiceTest {
         User user = new User(
                 userId, "test", "test", LocalDate.of(1990, 1, 1), "test",
                 Gender.MALE, Status.ACTIVE, 40.0, 29.0);
-        UserDto userDto = new UserDto( "test", "test", LocalDate.of(1990, 1, 1),
+        UserDto userDto = new UserDto(userId, "test", "test", LocalDate.of(1990, 1, 1),
                 "test", Gender.MALE, Status.ACTIVE, 40.0, 29.0);
         RestaurantDto restaurantDto = new RestaurantDto(
                 restaurantId, "test", "test", "test", "test", "test", "test",
@@ -125,7 +125,7 @@ public class UserReviewServiceTest {
         User user = new User(
                 userId, "test", "test", LocalDate.of(1990, 1, 1), "test",
                 Gender.MALE, Status.ACTIVE, 40.0, 29.0);
-        UserDto userDto = new UserDto( "test", "test", LocalDate.of(1990, 1, 1),
+        UserDto userDto = new UserDto(userId, "test", "test", LocalDate.of(1990, 1, 1),
                 "test", Gender.MALE, Status.ACTIVE, 40.0, 29.0);
         RestaurantDto restaurantDto = new RestaurantDto(
                 restaurantId, "test", "test", "test", "test", "test", "test",
@@ -156,7 +156,7 @@ public class UserReviewServiceTest {
         User user = new User(
                 userId, "test", "test", LocalDate.of(1990, 1, 1), "test",
                 Gender.MALE, Status.ACTIVE, 40.0, 29.0);
-        UserDto userDto = new UserDto( "test", "test", LocalDate.of(1990, 1, 1),
+        UserDto userDto = new UserDto(userId, "test", "test", LocalDate.of(1990, 1, 1),
                 "test", Gender.MALE, Status.ACTIVE, 40.0, 29.0);
         List<RestaurantDto> restaurantDtos = List.of(
                 new RestaurantDto(
@@ -191,7 +191,7 @@ public class UserReviewServiceTest {
         User user = new User(
                 userId, "test", "test", LocalDate.of(1990, 1, 1), "test",
                 Gender.MALE, Status.ACTIVE, 40.0, 29.0);
-        UserDto userDto = new UserDto( "test", "test", LocalDate.of(1990, 1, 1),
+        UserDto userDto = new UserDto(userId, "test", "test", LocalDate.of(1990, 1, 1),
                 "test", Gender.MALE, Status.ACTIVE, 40.0, 29.0);
         List<RestaurantDto> restaurantDtos = List.of(
                 new RestaurantDto(
@@ -228,7 +228,7 @@ public class UserReviewServiceTest {
         User user = new User(
                 userId, "test", "test", LocalDate.of(1990, 1, 1), "test",
                 Gender.MALE, Status.ACTIVE, 40.0, 29.0);
-        UserDto userDto = new UserDto( "test", "test", LocalDate.of(1990, 1, 1),
+        UserDto userDto = new UserDto(userId, "test", "test", LocalDate.of(1990, 1, 1),
                 "test", Gender.MALE, Status.ACTIVE, 40.0, 29.0);
         RestaurantDto restaurantDto = new RestaurantDto(restaurantId, "test", "test", "test",
                 "test", "test", "test", "test", BigDecimal.valueOf(0), Status.ACTIVE);
@@ -305,7 +305,7 @@ public class UserReviewServiceTest {
         UserReviewSaveRequest request = new UserReviewSaveRequest(
                 restaurantId, "test", BigDecimal.valueOf(0), userId);
 
-        UserDto userDto = new UserDto( "test", "test", LocalDate.of(1990, 1, 1),
+        UserDto userDto = new UserDto(userId, "test", "test", LocalDate.of(1990, 1, 1),
                 "test", Gender.MALE, Status.INACTIVE, 40.0, 29.0);
 
         Mockito.when(userService.getUserById(userId)).thenReturn(userDto);

@@ -1,8 +1,6 @@
 package com.seyidahmetarvas.userservice.dto.converter;
 
-import com.seyidahmetarvas.userservice.dto.response.UserDto;
 import com.seyidahmetarvas.userservice.dto.response.UserReviewDto;
-import com.seyidahmetarvas.userservice.model.User;
 import com.seyidahmetarvas.userservice.model.UserReview;
 import org.springframework.stereotype.Component;
 

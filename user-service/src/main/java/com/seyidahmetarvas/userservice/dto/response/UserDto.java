@@ -6,6 +6,7 @@ import com.seyidahmetarvas.userservice.model.enums.Status;
 import java.time.LocalDate;
 
 public record UserDto (
+        Long Id,
         String name,
         String surname,
         LocalDate birthDate,

@@ -51,7 +51,7 @@ class UserServiceTest {
                 userId,"test", "test",
                 LocalDate.of(1990, 1, 1), "test@gmail.com", Gender.MALE, Status.ACTIVE, 1.0, -1.0);
         UserDto userDto = new UserDto(
-                "test", "test",
+                userId, "test", "test",
                 LocalDate.of(1990, 1, 1),"test@gmail.com",Gender.MALE,Status.ACTIVE,1.0,-1.0);
 
         Mockito.when(userRepository.save(Mockito.any(User.class))).thenReturn(user);
@@ -73,7 +73,7 @@ class UserServiceTest {
                 userId,"test", "test",
                 LocalDate.of(1990, 1, 1), "test@gmail.com", Gender.MALE, Status.ACTIVE, 1.0, -1.0);
         UserDto userDto = new UserDto(
-                "test", "test",
+                userId, "test", "test",
                 LocalDate.of(1990, 1, 1),"test@gmail.com",Gender.MALE,Status.ACTIVE,1.0,-1.0);
 
         Mockito.when(userRepository.findById(userId)).thenReturn(Optional.of(user));
@@ -97,8 +97,8 @@ class UserServiceTest {
         );
 
         List<UserDto> userDtos = List.of(
-                new UserDto("John", "Doe", LocalDate.of(1990, 1, 1), "john.doe@example.com", Gender.MALE, Status.ACTIVE,1.0, -1.0),
-                new UserDto("Jane", "Doe", LocalDate.of(1992, 2, 2), "jane.doe@example.com", Gender.FEMALE, Status.ACTIVE,1.0, -1.0)
+                new UserDto(userId,"John", "Doe", LocalDate.of(1990, 1, 1), "john.doe@example.com", Gender.MALE, Status.ACTIVE,1.0, -1.0),
+                new UserDto(userId,"Jane", "Doe", LocalDate.of(1992, 2, 2), "jane.doe@example.com", Gender.FEMALE, Status.ACTIVE,1.0, -1.0)
         );
 
         Mockito.when(userRepository.findAll()).thenReturn(users);
@@ -129,7 +129,7 @@ class UserServiceTest {
                 userId,"test2", "test2",
                 LocalDate.of(1990, 1, 1), "test2@gmail.com", Gender.FEMALE, Status.INACTIVE, 3.0, -3.0);
         UserDto userDto = new UserDto(
-                "test2", "test2",
+                userId, "test2", "test2",
                 LocalDate.of(1990, 1, 1), "test2@gmail.com", Gender.FEMALE, Status.INACTIVE, 3.0, -3.0);
 
         Mockito.when(userRepository.findById(request.id())).thenReturn(Optional.of(user));

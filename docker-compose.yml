@@ -1,0 +1,193 @@
+
+services:
+  postgres_db:
+    image: postgres
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: user_service_db
+    ports:
+      - "5432:5432"
+    networks:
+      - back-tier
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  zookeeper:
+    image: "docker.io/bitnami/zookeeper:3"
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    volumes:
+      - "zookeeper_data:/bitnami"
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    networks:
+      - back-tier
+
+  kafka:
+    image: "docker.io/bitnami/kafka:2-debian-10"
+    ports:
+      - "9092:9092"
+    expose:
+      - "9093"
+    volumes:
+      - "kafka_data:/bitnami"
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_ADVERTISED_LISTENERS=INSIDE://kafka:9093,OUTSIDE://kafka:9092
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      - KAFKA_LISTENERS=INSIDE://0.0.0.0:9093,OUTSIDE://0.0.0.0:9092
+      - KAFKA_INTER_BROKER_LISTENER_NAME=INSIDE
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+    depends_on:
+      - zookeeper
+    networks:
+      - back-tier
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui
+    container_name: kafka-ui
+    ports:
+      - "9090:8080"
+    restart: always
+    environment:
+      - KAFKA_CLUSTERS_0_NAME=local
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:9093
+      - KAFKA_CLUSTERS_0_ZOOKEEPER=zookeeper:2181
+    networks:
+      - back-tier
+    depends_on:
+      - kafka
+
+  elasticsearch:
+    image: elasticsearch:8.8.0
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - validate_after_inactivity=0
+      - max_open_files=65536
+      - max_content_length_in_bytes=100000000
+      - transport.host=elasticsearch
+      - xpack.security.enabled=false
+    volumes:
+      - elasticsearch_data:/var/app
+    networks:
+      - back-tier
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    ports:
+      - "9411:9411"
+    networks:
+      - back-tier
+
+  mongodb:
+    image: mongo:6.0
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: logger
+      MONGO_INITDB_ROOT_PASSWORD: 1234
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - back-tier
+
+  mongo-express:
+    image: mongo-express:1.0
+    container_name: mongo-express
+    restart: always
+    ports:
+      - "8085:8085"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: logger
+      ME_CONFIG_MONGODB_ADMINPASSWORD: 1234
+      ME_CONFIG_MONGODB_SERVER: mongodb
+    networks:
+      - back-tier
+
+  eureka-service:
+    build:
+      context: ./eureka-service
+      dockerfile: Dockerfile
+    container_name: eureka-service
+    ports:
+      - "8761:8761"
+    networks:
+      - back-tier
+    restart: always
+
+  api-gateway:
+    hostname: api-gateway
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    environment:
+      - EUREKA_URI=http://eureka-service:8761/eureka
+    networks:
+      - back-tier
+    restart: always
+    depends_on:
+      - eureka-service
+
+  user-service:
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    container_name: user-service
+    ports:
+      - "8082:8082"
+    environment:
+      - EUREKA_URI=http://eureka-service:8761/eureka
+    networks:
+      - back-tier
+    restart: always
+    depends_on:
+      - eureka-service
+
+  restaurant-service:
+    build:
+      context: ./restaurant-service
+      dockerfile: Dockerfile
+    container_name: restaurant-service
+    ports:
+      - "8081:8081"
+    environment:
+      - EUREKA_URI=http://eureka-service:8761/eureka
+    networks:
+      - back-tier
+    restart: always
+    depends_on:
+      - eureka-service
+
+  logging-service:
+    build:
+      context: ./logging-service
+      dockerfile: Dockerfile
+    container_name: logging-service
+    ports:
+      - "8083:8083"
+    networks:
+      - back-tier
+    restart: always
+
+networks:
+  back-tier:
+volumes:
+  postgres_data:
+  elasticsearch_data:
+  kafka_data:
+  zookeeper_data:
+  mongodb_data:
