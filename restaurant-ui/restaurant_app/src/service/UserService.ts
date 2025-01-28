@@ -1,6 +1,7 @@
-import { axiosInstance } from "./AxiosInstance";
+import {axiosInstance} from "./AxiosInstance";
 
 interface User {
+    "id": number,
     "name": string,
     "surname": string,
     "birthDate": string,

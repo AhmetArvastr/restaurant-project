@@ -7,6 +7,7 @@ import com.seyidahmetarvas.restaurant.dto.response.RecommendationDto;
 import com.seyidahmetarvas.restaurant.dto.response.RestaurantDto;
 import com.seyidahmetarvas.restaurant.dto.response.RestaurantWithScoreDto;
 import com.seyidahmetarvas.restaurant.engine.RecommendationEngine;
+import com.seyidahmetarvas.restaurant.exception.UserNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class RecommendationService {
 
     public List<RecommendationDto> getAllRecommendationsWithAllUsers() {
         List<UserDto> users = Optional.ofNullable(userClient.getAllUsers().getBody().getData())
-                .orElseThrow(() -> new IllegalArgumentException("No users found"));
+                .orElseThrow(() -> new UserNotFoundException("Users not found"));
 
         List<RestaurantDto> restaurants = restaurantService.getAllRestaurants();
 

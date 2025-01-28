@@ -1,35 +1,66 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthProvider, AuthContext } from "./context/AuthContext";
+import { DataProvider } from "./context/DataContext";
+import Auth from "./pages/Auth/Auth";
+import Home from "./pages/Home/Home";
+import Profile from "./pages/Profile/Profile";
+import RestaurantDetail from "./pages/RestaurantDetail/RestaurantDetail";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+    const authContext = useContext(AuthContext);
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    const jwt = authContext ? authContext.jwt : "";
+    console.log("jwt", jwt);
+
+    localStorage.setItem("username", "admin");
+    localStorage.setItem("password", "admin");
+
+    return (
+        <div className="w-full h-[100%]">
+            <BrowserRouter>
+                <AuthProvider>
+                    <DataProvider>
+                        <Routes>
+                            <Route
+                                exact
+                                path="/"
+                                element={
+                                    jwt === "" || jwt === null ? (
+                                        <Auth />
+                                    ) : (
+                                        <Navigate to="/home" />
+                                    )
+                                }
+                            />
+                            <Route
+                                exact
+                                path="/home"
+                                element={
+                                    <Home />
+                                }
+                            />
+                            <Route
+                                exact
+                                path="/profile"
+                                element={
+                                    <Profile />
+                                }
+                            />
+                            <Route
+                                exact
+                                path={`/restaurant/:id`}
+                                element={
+                                    <RestaurantDetail />
+                                }
+                            />
+                        </Routes>
+                    </DataProvider>
+                </AuthProvider>
+            </BrowserRouter>
+        </div>
+    );
 }
 
-export default App
+export default App;

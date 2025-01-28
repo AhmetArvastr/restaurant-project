@@ -21,10 +21,7 @@ interface RestaurantRecommendation extends Restaurant{
 }
 
 interface FetchAllRestaurantsResponse {
-    data: Restaurant[];
-    responseDate: string;
-    message: string;
-    success: boolean;
+    restaurants: Restaurant[];
 }
 
 interface FetchRestaurantByIdResponse {
@@ -41,7 +38,7 @@ interface DeleteRestaurantResponse {
     success: boolean;
 }
 
-interface data {
+interface RecommendationRestaurants {
     user: {
             id: number;
             name: string;
@@ -69,13 +66,13 @@ interface FetchRestaurantRecommendationByIdResponse {
 
 
 
-const fetchAllRestaurants = async (): Promise<FetchAllRestaurantsResponse> => {
-    try{
-        const response = await axiosInstance.get("/api/v1/restaurants/")
-        return response.data
-    }catch(e){
-        console.log(e)
-        throw e
+const fetchAllRestaurants = async (): Promise<Restaurant[]> => {
+    try {
+        const response = await axiosInstance.get("/api/v1/restaurants");
+        return response.data;
+    } catch (e) {
+        console.log(e);
+        throw e;
     }
 }
 
@@ -102,7 +99,7 @@ const deleteRestaurant = async (id: string): Promise<DeleteRestaurantResponse> =
 
 const saveRestaurant = async (restaurant: Restaurant): Promise<FetchRestaurantByIdResponse> => {
     try{
-        const response = await axiosInstance.post("/api/v1/restaurants/", restaurant)
+        const response = await axiosInstance.post("/api/v1/restaurants", restaurant)
         return response.data
     }catch(e){
         console.log(e)
@@ -112,10 +109,10 @@ const saveRestaurant = async (restaurant: Restaurant): Promise<FetchRestaurantBy
 }
 
 
-const restaurantRecommendation = async (id: string): Promise<FetchRestaurantRecommendationByIdResponse> => {
+const restaurantRecommendation = async (id: string): Promise<RecommendationRestaurants> => {
     try {
         const [response] = await Promise.all([axiosInstance.get(`/api/v1/restaurants/recommendations/${id}`)]);
-        return response.data as FetchRestaurantRecommendationByIdResponse;
+        return response.data
     } catch (e) {
         console.log(e);
         throw e;

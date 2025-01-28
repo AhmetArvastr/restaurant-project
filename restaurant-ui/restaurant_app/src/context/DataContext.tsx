@@ -13,6 +13,20 @@ interface DataProviderProps {
   children: React.ReactNode;
 }
 
+interface Restaurant {
+  id: string;
+  name: string;
+  address: string;
+  phone: string;
+  email: string;
+  description: string;
+  website: string;
+  workingHours: string;
+  "latitude": number;
+  "longitude": number;
+  "restaurantRate": number;
+}
+
 interface User {
   id: number;
   name: string;
@@ -23,7 +37,7 @@ interface User {
 }
 
 export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
-  const [restaurants, setRestaurants] = useState<object[]>([]);
+  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [updateApp, setUpdateApp] = useState<boolean>(false);
   const [recommendedUser, setRecommendedUser] = useState<User>({
     id: 0,
@@ -44,12 +58,12 @@ export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
   };
 
   return (
-    <DataContext.Provider value={dataContextValue}>
-      {children}
-    </DataContext.Provider>
+      <DataContext.Provider value={dataContextValue}>
+        {children}
+      </DataContext.Provider>
   );
 };
 
 export const DataContext = createContext<DataContextType | undefined>(
-  undefined
+    undefined
 );
