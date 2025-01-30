@@ -1,5 +1,6 @@
 package com.seyidahmetarvas.userservice.client;
 
+import com.seyidahmetarvas.userservice.common.base.RestResponse;
 import com.seyidahmetarvas.userservice.dto.response.RestaurantDto;
 import com.seyidahmetarvas.userservice.exception.RestaurantNotFoundException;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -15,11 +16,11 @@ import java.util.List;
 public interface RestaurantClient {
 
     @GetMapping()
-    ResponseEntity<List<RestaurantDto>> getAllRestaurants();
+    ResponseEntity<RestResponse<List<RestaurantDto>>> getAllRestaurants();
 
     @GetMapping ("/{id}")
     @CircuitBreaker(name = "getRestaurantByIdBreaker", fallbackMethod = "getRestaurantByIdFallback")
-    ResponseEntity<RestaurantDto> getRestaurantById(@PathVariable(name="id") String id);
+    ResponseEntity<RestResponse<RestaurantDto>> getRestaurantById(@PathVariable(name="id") String id);
 
     default ResponseEntity<RestaurantDto> getRestaurantByIdFallback(@PathVariable(name="id") String id) {
         BigDecimal a = BigDecimal.valueOf(3);

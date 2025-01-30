@@ -21,7 +21,10 @@ interface RestaurantRecommendation extends Restaurant{
 }
 
 interface FetchAllRestaurantsResponse {
-    restaurants: Restaurant[];
+    data: Restaurant[];
+    responseDate: string;
+    message: string;
+    success: boolean;
 }
 
 interface FetchRestaurantByIdResponse {
@@ -38,15 +41,15 @@ interface DeleteRestaurantResponse {
     success: boolean;
 }
 
-interface RecommendationRestaurants {
+interface data {
     user: {
-            id: number;
-            name: string;
-            surname: string;
-            email: string;
-            latitude: number;
-            longitude: number;
-        };
+        id: number;
+        name: string;
+        surname: string;
+        email: string;
+        latitude: number;
+        longitude: number;
+    };
     restaurantList: RestaurantRecommendation[];
 }
 
@@ -66,13 +69,13 @@ interface FetchRestaurantRecommendationByIdResponse {
 
 
 
-const fetchAllRestaurants = async (): Promise<Restaurant[]> => {
-    try {
-        const response = await axiosInstance.get("/api/v1/restaurants");
-        return response.data;
-    } catch (e) {
-        console.log(e);
-        throw e;
+const fetchAllRestaurants = async (): Promise<FetchAllRestaurantsResponse> => {
+    try{
+        const response = await axiosInstance.get("/api/v1/restaurants")
+        return response.data
+    }catch(e){
+        console.log(e)
+        throw e
     }
 }
 
@@ -105,14 +108,13 @@ const saveRestaurant = async (restaurant: Restaurant): Promise<FetchRestaurantBy
         console.log(e)
         throw e
     }
-
 }
 
 
-const restaurantRecommendation = async (id: string): Promise<RecommendationRestaurants> => {
+const restaurantRecommendation = async (id: string): Promise<FetchRestaurantRecommendationByIdResponse> => {
     try {
-        const [response] = await Promise.all([axiosInstance.get(`/api/v1/restaurants/recommendations/${id}`)]);
-        return response.data
+        const response = await axiosInstance.get(`/api/v1/restaurants/recommendations/${id}`);
+        return response.data as FetchRestaurantRecommendationByIdResponse;
     } catch (e) {
         console.log(e);
         throw e;
@@ -121,4 +123,4 @@ const restaurantRecommendation = async (id: string): Promise<RecommendationResta
 
 
 
-export {fetchAllRestaurants, fetchRestaurantById,deleteRestaurant,restaurantRecommendation,saveRestaurant}
+export {fetchAllRestaurants, fetchRestaurantById,deleteRestaurant,restaurantRecommendation}

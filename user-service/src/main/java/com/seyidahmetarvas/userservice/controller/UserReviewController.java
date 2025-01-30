@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
-@RequestMapping("/api/v1/users/reviews")
+@RequestMapping("api/v1/users/reviews")
 public class UserReviewController {
     private final UserReviewService userReviewService;
 
@@ -56,7 +56,7 @@ public class UserReviewController {
             @ApiResponse(responseCode = "400", description = "Bad Request<br>-Restaurant not found<br>-User not found"),
             @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
-    @PostMapping
+    @PostMapping("/save")
     public ResponseEntity<RestResponse<UserReviewDetailDto>> createUserReview(@Valid @RequestBody
                                                                                   UserReviewSaveRequest request) {
         return ResponseEntity.ok(
@@ -69,7 +69,7 @@ public class UserReviewController {
             @ApiResponse(responseCode = "200", description = "Success"),
             @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<RestResponse<List<UserReviewDetailDto>>> getAllUserReviews() {
         return ResponseEntity.ok(
                 RestResponse.of(

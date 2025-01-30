@@ -79,7 +79,7 @@ public class UserController {
             @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<RestResponse<UserDto>> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<RestResponse<?>> deleteUser(@PathVariable Long id) {
         userService.deleteUserById(id);
         return ResponseEntity.ok(RestResponse.empty("User deleted."));
     }

@@ -1,5 +1,6 @@
 package com.seyidahmetarvas.restaurant.controller;
 
+import com.seyidahmetarvas.restaurant.common.RestResponse;
 import com.seyidahmetarvas.restaurant.dto.response.RecommendationDto;
 import com.seyidahmetarvas.restaurant.service.RecommendationService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,8 +30,8 @@ public class RecommendationController {
             @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
     @GetMapping("/{userId}")
-    public ResponseEntity<RecommendationDto> getRecommendationByUserId(@PathVariable Long userId) {
-        return ResponseEntity.ok(recommendationService.getRecommendationByUserId(userId));
+    public ResponseEntity<RestResponse<RecommendationDto>> getRecommendationByUserId(@PathVariable Long userId) {
+        return ResponseEntity.ok(RestResponse.of(recommendationService.getRecommendationByUserId(userId), "Restaurant recommendations listed by user id"));
     }
 
     @Operation(summary = "GET request for restaurant recommendations with users", description = "Returns restaurant recommendations for all users")
@@ -40,7 +41,7 @@ public class RecommendationController {
             @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
     @GetMapping
-    public ResponseEntity<List<RecommendationDto>> getRecommendationsWithUsers() {
-        return ResponseEntity.ok(recommendationService.getAllRecommendationsWithAllUsers());
+    public ResponseEntity<RestResponse<List<RecommendationDto>>> getRecommendationsWithUsers() {
+        return ResponseEntity.ok(RestResponse.of(recommendationService.getAllRecommendationsWithAllUsers(), "Restaurant recommendations listed with users"));
     }
 }

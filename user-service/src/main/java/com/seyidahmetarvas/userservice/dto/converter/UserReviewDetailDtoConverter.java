@@ -19,6 +19,7 @@ public class UserReviewDetailDtoConverter {
 
     public UserReviewDetailDto convert(UserReview userReview, RestaurantDto restaurantDto) {
         return new UserReviewDetailDto(
+                userReview.getCreatedAt(),
                 userReview.getRestaurantId(),
                 restaurantDto.name(),
                 userReview.getComment(),
@@ -29,26 +30,28 @@ public class UserReviewDetailDtoConverter {
     public List<UserReviewDetailDto> convert(List<UserReview> userReviews, List<RestaurantDto> restaurantDtos) {
         return userReviews.stream()
                 .map(review -> {
-                    RestaurantDto matchedRestaurant = restaurantDtos.stream()
+                    return restaurantDtos.stream()
                             .filter(restaurant -> restaurant.id().equals(review.getRestaurantId()))
                             .findFirst()
+                            .map(matchedRestaurant -> new UserReviewDetailDto(
+                                    review.getCreatedAt(),
+                                    matchedRestaurant.id(),
+                                    matchedRestaurant.name(),
+                                    review.getComment(),
+                                    review.getUserRate(),
+                                    converter.convert(review.getUser())
+                            ))
                             .orElse(null);
-
-                    return new UserReviewDetailDto(
-                            Objects.requireNonNull(matchedRestaurant).id(),
-                            Objects.requireNonNull(matchedRestaurant).name(),
-                            review.getComment(),
-                            review.getUserRate(),
-                            converter.convert(review.getUser())
-                    );
                 })
                 .collect(Collectors.toList());
     }
+
 
     public List<UserReviewDetailDto> convert(List<UserReview> userReviews, RestaurantDto restaurantDto) {
         return userReviews.stream()
                 .map(review -> {
                     return new UserReviewDetailDto(
+                            review.getCreatedAt(),
                             Objects.requireNonNull(restaurantDto).id(),
                             Objects.requireNonNull(restaurantDto).name(),
                             review.getComment(),

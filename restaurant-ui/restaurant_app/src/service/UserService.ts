@@ -1,15 +1,15 @@
 import {axiosInstance} from "./AxiosInstance";
 
 interface User {
-    "id": number,
-    "name": string,
-    "surname": string,
-    "birthDate": string,
-    "email": string,
-    "gender": string,
-    "userStatus": string,
-    "latitude": number,
-    "longitude": number
+    id: number,
+    name: string,
+    surname: string,
+    birthDate: string,
+    email: string,
+    gender: string,
+    userStatus: string,
+    latitude: number,
+    longitude: number
 }
 
 const deleteUser = async (id: number) => {

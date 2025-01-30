@@ -1,6 +1,7 @@
 package com.userreview_service;
 
 import com.seyidahmetarvas.userservice.client.RestaurantClient;
+import com.seyidahmetarvas.userservice.common.base.RestResponse;
 import com.seyidahmetarvas.userservice.dto.converter.*;
 import com.seyidahmetarvas.userservice.dto.request.UserReviewSaveRequest;
 import com.seyidahmetarvas.userservice.dto.request.UserReviewUpdateRequest;
@@ -25,6 +26,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -97,11 +99,11 @@ public class UserReviewServiceTest {
                 restaurantId, "test", "test", "test", "test", "test", "test",
                 "test", BigDecimal.valueOf(0), Status.ACTIVE);
         UserReview userReview = new UserReview(restaurantId, "test", BigDecimal.valueOf(0), user);
-        UserReviewDetailDto detailDto = new UserReviewDetailDto(
+        UserReviewDetailDto detailDto = new UserReviewDetailDto(LocalDateTime.now(),
                 restaurantId, "test", "test", BigDecimal.valueOf(0), userDto);
 
         Mockito.when(userService.getUserById(userId)).thenReturn(userDto);
-        Mockito.when(restaurantClient.getRestaurantById(restaurantId)).thenReturn(ResponseEntity.ok(restaurantDto));
+        Mockito.when(restaurantClient.getRestaurantById(restaurantId)).thenReturn(ResponseEntity.ok(RestResponse.of(restaurantDto, "tested")));
         Mockito.when(repository.save(Mockito.any(UserReview.class))).thenReturn(userReview);
         Mockito.when(detailConverter.convert(userReview, restaurantDto)).thenReturn(detailDto);
 
@@ -131,11 +133,11 @@ public class UserReviewServiceTest {
                 restaurantId, "test", "test", "test", "test", "test", "test",
                 "test", BigDecimal.valueOf(0), Status.ACTIVE);
         UserReview userReview = new UserReview(restaurantId, "test", BigDecimal.valueOf(0), user);
-        UserReviewDetailDto detailDto = new UserReviewDetailDto(
+        UserReviewDetailDto detailDto = new UserReviewDetailDto(LocalDateTime.now(),
                 restaurantId, "test", "test", BigDecimal.valueOf(0), userDto);
 
         Mockito.when(repository.findById(userReviewId)).thenReturn(Optional.of(userReview));
-        Mockito.when(restaurantClient.getRestaurantById(userReview.getRestaurantId())).thenReturn(ResponseEntity.ok(restaurantDto));
+        Mockito.when(restaurantClient.getRestaurantById(userReview.getRestaurantId())).thenReturn(ResponseEntity.ok(RestResponse.of(restaurantDto, "tested")));
         Mockito.when(detailConverter.convert(userReview, restaurantDto)).thenReturn(detailDto);
 
         UserReviewDetailDto result = userReviewService.getUserReviewDetailById(userReviewId);
@@ -166,11 +168,11 @@ public class UserReviewServiceTest {
                 new UserReview(restaurantId, "test", BigDecimal.valueOf(0),user),
                 new UserReview(restaurantId, "test2", BigDecimal.valueOf(1), user));
         List<UserReviewDetailDto> detailDtos =List.of(
-                new UserReviewDetailDto(restaurantId, "test", "test", BigDecimal.valueOf(0), userDto),
-                new UserReviewDetailDto(restaurantId, "test2", "test2", BigDecimal.valueOf(1), userDto));
+                new UserReviewDetailDto(LocalDateTime.now(),restaurantId, "test", "test", BigDecimal.valueOf(0), userDto),
+                new UserReviewDetailDto(LocalDateTime.now(),restaurantId, "test2", "test2", BigDecimal.valueOf(1), userDto));
 
         Mockito.when(repository.findAll()).thenReturn(userReviews);
-        Mockito.when(restaurantClient.getAllRestaurants()).thenReturn(ResponseEntity.ok(restaurantDtos));
+        Mockito.when(restaurantClient.getAllRestaurants()).thenReturn(ResponseEntity.ok(RestResponse.of(restaurantDtos, "tested")));
         Mockito.when(detailConverter.convert(userReviews, restaurantDtos)).thenReturn(detailDtos);
 
         List<UserReviewDetailDto> result = userReviewService.getAllUserReviews();
@@ -201,11 +203,11 @@ public class UserReviewServiceTest {
                 new UserReview(restaurantId, "test", BigDecimal.valueOf(0),user),
                 new UserReview(restaurantId, "test2", BigDecimal.valueOf(1), user));
         List<UserReviewDetailDto> detailDtos =List.of(
-                new UserReviewDetailDto(restaurantId, "test", "test", BigDecimal.valueOf(0), userDto),
-                new UserReviewDetailDto(restaurantId, "test2", "test2", BigDecimal.valueOf(1), userDto));
+                new UserReviewDetailDto(LocalDateTime.now(),restaurantId, "test", "test", BigDecimal.valueOf(0), userDto),
+                new UserReviewDetailDto(LocalDateTime.now(),restaurantId, "test2", "test2", BigDecimal.valueOf(1), userDto));
 
         Mockito.when(repository.findByUserId(userId)).thenReturn(userReviews);
-        Mockito.when(restaurantClient.getAllRestaurants()).thenReturn(ResponseEntity.ok(restaurantDtos));
+        Mockito.when(restaurantClient.getAllRestaurants()).thenReturn(ResponseEntity.ok(RestResponse.of(restaurantDtos,"tested")));
         Mockito.when(detailConverter.convert(userReviews, restaurantDtos)).thenReturn(detailDtos);
 
         List<UserReviewDetailDto> result = userReviewService.getUserReviewsByUserId(userId);
@@ -237,10 +239,10 @@ public class UserReviewServiceTest {
         UserReview userReview =
                 new UserReview(restaurantId, "test", BigDecimal.valueOf(0),user);
         UserReviewDetailDto detailDto =
-                new UserReviewDetailDto(restaurantId, "test", "test", BigDecimal.valueOf(0), userDto);
+                new UserReviewDetailDto(LocalDateTime.now(),restaurantId, "test", "test", BigDecimal.valueOf(0), userDto);
 
         Mockito.when(repository.findById(userReviewId)).thenReturn(Optional.of(userReview));
-        Mockito.when(restaurantClient.getRestaurantById(restaurantId)).thenReturn(ResponseEntity.ok(restaurantDto));
+        Mockito.when(restaurantClient.getRestaurantById(restaurantId)).thenReturn(ResponseEntity.ok(RestResponse.of(restaurantDto, "tested")));
         Mockito.when(toUserReview.convert(updater,request)).thenReturn(userReview);
         Mockito.when(repository.save(userReview)).thenReturn(userReview);
         Mockito.when(detailConverter.convert(userReview, restaurantDto)).thenReturn(detailDto);

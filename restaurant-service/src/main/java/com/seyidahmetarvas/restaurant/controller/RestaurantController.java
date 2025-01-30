@@ -1,5 +1,6 @@
 package com.seyidahmetarvas.restaurant.controller;
 
+import com.seyidahmetarvas.restaurant.common.RestResponse;
 import com.seyidahmetarvas.restaurant.dto.requests.RestaurantSaveRequest;
 import com.seyidahmetarvas.restaurant.dto.requests.RestaurantUpdateRequest;
 import com.seyidahmetarvas.restaurant.dto.response.RestaurantDto;
@@ -27,8 +28,8 @@ public class RestaurantController {
             @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
     @GetMapping
-    public ResponseEntity<List<RestaurantDto>> getAllRestaurants() {
-        return ResponseEntity.ok(restaurantService.getAllRestaurants());
+    public ResponseEntity<RestResponse<List<RestaurantDto>>> getAllRestaurants() {
+        return ResponseEntity.ok(RestResponse.of(restaurantService.getAllRestaurants(), "Restaurants listed successfully"));
     }
 
     @Operation(summary = "GET request for restaurant by id", description = "Returns a restaurant by id")
@@ -38,8 +39,8 @@ public class RestaurantController {
             @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<RestaurantDto> getRestaurantById(@PathVariable String id) {
-        return ResponseEntity.ok(restaurantService.getRestraurantById(id));
+    public ResponseEntity<RestResponse<RestaurantDto>> getRestaurantById(@PathVariable String id) {
+        return ResponseEntity.ok(RestResponse.of(restaurantService.getRestraurantById(id), "Restaurant listed by id"));
     }
 
     @Operation(summary = "POST request to save a restaurant", description = "Saves a restaurant to database")
@@ -49,8 +50,8 @@ public class RestaurantController {
             @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
     @PostMapping
-    public ResponseEntity<RestaurantDto> saveRestaurant(@RequestBody RestaurantSaveRequest request) {
-        return ResponseEntity.ok(restaurantService.createRestaurant(request));
+    public ResponseEntity<RestResponse<RestaurantDto>> saveRestaurant(@RequestBody RestaurantSaveRequest request) {
+        return ResponseEntity.ok(RestResponse.of(restaurantService.createRestaurant(request), "Restaurant saved successfully"));
     }
 
     @Operation(summary = "PUT request to update a restaurant", description = "Updates a restaurant in database")
@@ -60,8 +61,8 @@ public class RestaurantController {
             @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
     @PutMapping
-    public ResponseEntity<RestaurantDto> updateRestaurant(@RequestBody RestaurantUpdateRequest request) {
-        return ResponseEntity.ok(restaurantService.updateRestaurant(request));
+    public ResponseEntity<RestResponse<RestaurantDto>> updateRestaurant(@RequestBody RestaurantUpdateRequest request) {
+        return ResponseEntity.ok(RestResponse.of(restaurantService.updateRestaurant(request), "Restaurant updated successfully"));
     }
 
     @Operation(summary = "DELETE request to delete a restaurant", description = "Deletes a restaurant from database")
@@ -71,8 +72,8 @@ public class RestaurantController {
             @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteRestaurant(@PathVariable String id) {
+    public ResponseEntity<RestResponse<?>> deleteRestaurant(@PathVariable String id) {
         restaurantService.deleteRestaurantById(id);
-        return ResponseEntity.ok("Restaurant is deleted successfully");
+        return ResponseEntity.ok(RestResponse.empty("Restaurant is deleted successfully"));
     }
 }
