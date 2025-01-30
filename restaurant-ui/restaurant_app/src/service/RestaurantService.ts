@@ -34,12 +34,6 @@ interface FetchRestaurantByIdResponse {
     success: boolean;
 }
 
-interface DeleteRestaurantResponse {
-    data: object;
-    responseDate: string;
-    message: string;
-    success: boolean;
-}
 
 interface data {
     user: {
@@ -89,28 +83,6 @@ const fetchRestaurantById = async (id: string): Promise<FetchRestaurantByIdRespo
     }
 }
 
-const deleteRestaurant = async (id: string): Promise<DeleteRestaurantResponse> => {
-    try{
-        const response = await axiosInstance.delete(`/api/v1/restaurants/${id}`)
-        return response.data
-    }catch(e){
-        console.log(e)
-        throw e
-    }
-
-}
-
-const saveRestaurant = async (restaurant: Restaurant): Promise<FetchRestaurantByIdResponse> => {
-    try{
-        const response = await axiosInstance.post("/api/v1/restaurants", restaurant)
-        return response.data
-    }catch(e){
-        console.log(e)
-        throw e
-    }
-}
-
-
 const restaurantRecommendation = async (id: string): Promise<FetchRestaurantRecommendationByIdResponse> => {
     try {
         const response = await axiosInstance.get(`/api/v1/restaurants/recommendations/${id}`);
@@ -123,4 +95,4 @@ const restaurantRecommendation = async (id: string): Promise<FetchRestaurantReco
 
 
 
-export {fetchAllRestaurants, fetchRestaurantById,deleteRestaurant,restaurantRecommendation}
+export {fetchAllRestaurants, fetchRestaurantById,restaurantRecommendation}

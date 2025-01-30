@@ -1,6 +1,5 @@
 import React, { createContext, useState } from "react";
 
-// TYPES START
 interface CreateUserForm {
   name: string;
   password: string;
