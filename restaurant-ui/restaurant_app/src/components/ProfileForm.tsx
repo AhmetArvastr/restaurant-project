@@ -34,60 +34,60 @@ function ProfileForm() {
       <div style={{ width: "80%" }}>
         <Formik initialValues={initialValues} onSubmit={handleSubmit}>
           {({ values }) => (
-            <Form className="bg-gradient-to-r from-gray-300 to-[#ff4500] p-6 rounded-lg">
+            <Form className="bg-gradient-to-r from-gray-800 to-gray-900 p-6 rounded-lg">
               <div className="mb-4">
-                <label htmlFor="name" className="text-white font-semibold">
+                <label htmlFor="name" className="text-pink-400 font-semibold">
                   Name:
                 </label>
                 <Field
                   type="text"
                   id="name"
                   name="name"
-                  className="w-full p-2 mt-1 rounded-md bg-gray-100"
+                  className="w-full p-2 mt-1 rounded-md bg-gray-950 text-purple-200"
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="surname" className="text-white font-semibold">
+                <label htmlFor="surname" className="text-pink-400 font-semibold">
                   Surname:
                 </label>
                 <Field
                   type="text"
                   id="surname"
                   name="surname"
-                  className="w-full p-2 mt-1 rounded-md bg-gray-100"
+                  className="w-full p-2 mt-1 rounded-md bg-gray-950 text-purple-200"
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="birthDate" className="text-white font-semibold">
+                <label htmlFor="birthDate" className="text-pink-400 font-semibold">
                   Birth Date:
                 </label>
                 <Field
                   type="date"
                   id="birthDate"
                   name="birthDate"
-                  className="w-full p-2 mt-1 rounded-md bg-gray-100"
+                  className="w-full p-2 mt-1 rounded-md bg-gray-950 text-purple-200"
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="email" className="text-white font-semibold">
+                <label htmlFor="email" className="text-pink-400 font-semibold">
                   Email:
                 </label>
                 <Field
                   type="email"
                   id="email"
                   name="email"
-                  className="w-full p-2 mt-1 rounded-md bg-gray-100"
+                  className="w-full p-2 mt-1 rounded-md bg-gray-950 text-purple-200"
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="gender" className="text-white font-semibold">
+                <label htmlFor="gender" className="text-pink-400 font-semibold">
                   Gender:
                 </label>
                 <Field
                   as="select"
                   id="gender"
                   name="gender"
-                  className="w-full p-2 mt-1 rounded-md bg-gray-100"
+                  className="w-full p-2 mt-1 rounded-md bg-gray-950 text-purple-200"
                 >
                   <option value="MALE">Male</option>
                   <option value="FEMALE">Female</option>
@@ -96,7 +96,7 @@ function ProfileForm() {
               <div className="mb-4">
                 <label
                   htmlFor="userStatus"
-                  className="text-white font-semibold"
+                  className="text-pink-400 font-semibold"
                 >
                   Status:
                 </label>
@@ -104,7 +104,7 @@ function ProfileForm() {
                   as="select"
                   id="userStatus"
                   name="userStatus"
-                  className="w-full p-2 mt-1 rounded-md bg-gray-100"
+                  className="w-full p-2 mt-1 rounded-md bg-gray-950 text-purple-200"
                 >
                   <option value="ACTIVE">Active</option>
                   <option value="INACTIVE">Inactive</option>
@@ -113,7 +113,7 @@ function ProfileForm() {
               <div className="mt-6">
                 <button
                   type="submit"
-                  className="bg-white text-orange-500 font-semibold py-2 px-4 rounded-md hover:bg-orange-400"
+                  className="bg-pink-600 text-purple-200 font-semibold py-2 px-4 rounded-md hover:bg-pink-900"
                 >
                   Submit
                 </button>

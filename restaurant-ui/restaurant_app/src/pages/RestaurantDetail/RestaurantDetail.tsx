@@ -55,19 +55,19 @@ function RestaurantDetail() {
   console.log(restaurant)
 
   return (
-      <div className="flex justify-center items-center w-screen h-screen bg-[#f4edcc] overflow-x-hidden">
+      <div className="flex justify-center items-center w-screen h-screen overflow-x-hidden">
         <ReviewForm restaurantId={id} />
         <div className="flex flex-col mr-auto">
           <Restaurant restaurant={restaurant} handleRestaurantClick={null} />
           <div id="userReviewContainer" className="w-96 overflow-y-auto p-4">
             {userReviews.map((review: any) => (
                 <div
-                    className="bg-gradient-to-br to-orange-600 from-purple-800 rounded-lg shadow-md shadow-black p-4 mb-4 text-white"
+                    className="bg-gradient-to-br to-gray-900 from-gray-800 rounded-lg shadow-md shadow-black p-4 mb-4 text-pink-300"
                     key={review.user.id}
                 >
                   <div className="flex justify-between mb-2">
                     <h3 className="font-bold">{review.user.name}</h3>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-purple-200">
                       {new Date(
                           review.createdAt
                       ).toLocaleDateString()}

@@ -66,7 +66,7 @@ function Home() {
     };
 
     return (
-        <div className="w-screen h-[%100]  flex flex-col items-center pt-5 relative px-20 bg-[#f4edcc] pb-16">
+        <div className="w-screen h-[%100]  flex flex-col items-center pt-5 relative px-20 pb-16">
             <Navbar />
             <div
                 id="innerHomeContainer"
@@ -74,9 +74,9 @@ function Home() {
             >
                 <div
                     id="recommendationContainer"
-                    className="flex flex-col justify-center items-center gap-5 min-w-[600px] w-[50%] py-6 h-full bg-gradient-to-br to-orange-600 from-purple-800 rounded-xl shadow-black shadow-xl m-5 p-5 relative text-white"
+                    className="flex flex-col justify-center items-center gap-5 min-w-[600px] w-[50%] py-6 h-full bg-gradient-to-br to-gray-900 from-gray-800 rounded-xl shadow-black shadow-xl m-5 p-5 relative text-white"
                 >
-                    <h2 className="font-bold text-lg">
+                    <h2 className="font-bold text-lg text-pink-400">
                         Get Restaurant Recommendation Special To You
                     </h2>
                     <div className="flex gap-5">
@@ -84,13 +84,13 @@ function Home() {
                             type="text"
                             value={recommendationInput}
                             onChange={(e) => setRecommendationInput(e.target.value)}
-                            className="px-3 py-1 rounded border-none text-black"
+                            className="px-3 py-1 rounded border-none text-purple-200 bg-gray-950"
                             maxLength={10}
                             placeholder="Please enter your user id"
                         />
                         <button
                             onClick={handleRecommendation}
-                            className="px-5 py-3 rounded-lg bg-black"
+                            className="px-5 py-3 rounded-lg bg-pink-700 text-white-500"
                         >
                             Get Recommended Restaurants
                         </button>
@@ -99,7 +99,7 @@ function Home() {
                 <div className="mb-10">
                     {dataContext?.recommendedUser.id !== 0 && (
                         <div>
-                            <h1 className="font-bold text-lg">
+                            <h1 className="font-bold text-lg text-pink-400">
                                 Restaurant Recommendations For{" "}
                                 {dataContext?.recommendedUser.name}
                             </h1>

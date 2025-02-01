@@ -35,7 +35,7 @@ export default function DataTable({ data }: { data: any[] }) {
         <span
           style={{
             fontWeight: "bold",
-            color: params.row.userStatus === "ACTIVE" ? "green" : "red",
+            color: params.row.userStatus === "ACTIVE" ? "#4ade80" : "#f87171",
           }}
         >
           {params.row.userStatus}
@@ -84,7 +84,7 @@ export default function DataTable({ data }: { data: any[] }) {
         style={{
           height: 400,
           width: "80%",
-          background: "linear-gradient(to right, #3333, #ff4500)",
+          background: "linear-gradient(to right, #1f2937, #111827)",
           padding: "10px",
         }}
       >
@@ -94,6 +94,26 @@ export default function DataTable({ data }: { data: any[] }) {
           pageSize={5}
           checkboxSelection
           getRowId={(row) => row.id}
+          sx={{
+            '& .MuiDataGrid-cell': {
+              color: '#f472b6'
+            },
+            '& .MuiTablePagination-selectLabel': {
+              color: '#f472b6'
+            },
+            '& .MuiTablePagination-displayedRows': {
+              color: '#f472b6'
+            },
+            '& .MuiTablePagination-select': {
+              color: '#f472b6'
+            },
+            '& .MuiTablePagination-actions': {
+              color: '#f472b6'
+            },
+            '& .MuiInputBase-root': {
+              color: '#f472b6'
+            },
+          }}
         />
       </div>
     </div>

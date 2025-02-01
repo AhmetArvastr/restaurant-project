@@ -27,7 +27,7 @@ const ReviewForm = ({ restaurantId }: { restaurantId: any }) => {
   };
 
   return (
-    <div className="max-w-md mx-auto bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 p-6 rounded-lg shadow-lg">
+    <div className="max-w-md mx-auto bg-gradient-to-r from-gray-800 to-gray-900 p-6 rounded-lg shadow-lg">
       <Formik
         initialValues={{
           restaurantId: restaurantId,
@@ -45,7 +45,7 @@ const ReviewForm = ({ restaurantId }: { restaurantId: any }) => {
             <div>
               <label
                 htmlFor="comment"
-                className="block text-lg font-bold text-gray-700"
+                className="block text-lg font-bold text-pink-400"
               >
                 Comment
               </label>
@@ -53,13 +53,13 @@ const ReviewForm = ({ restaurantId }: { restaurantId: any }) => {
                 as="textarea"
                 id="comment"
                 name="comment"
-                className="mt-1 p-2 w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300"
+                className="mt-1 p-2 w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm bg-gray-950 text-purple-200"
               ></Field>
             </div>
             <div>
               <label
                 htmlFor="userRate"
-                className="block text-lg font-bold text-gray-700"
+                className="block text-lg font-bold text-pink-400"
               >
                 User Rate
               </label>
@@ -67,7 +67,7 @@ const ReviewForm = ({ restaurantId }: { restaurantId: any }) => {
                 as="select"
                 id="userRate"
                 name="userRate"
-                className="mt-1 p-2 w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300"
+                className="mt-1 p-2 w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm bg-gray-950 text-purple-200"
               >
                 <option value="">Select</option>
                 <option value="1">1</option>
@@ -80,7 +80,7 @@ const ReviewForm = ({ restaurantId }: { restaurantId: any }) => {
             <div>
               <label
                 htmlFor="userId"
-                className="block text-lg font-bold text-gray-700"
+                className="block text-lg font-bold text-pink-400"
               >
                 User ID
               </label>
@@ -88,13 +88,13 @@ const ReviewForm = ({ restaurantId }: { restaurantId: any }) => {
                 type="text"
                 id="userId"
                 name="userId"
-                className="mt-1 p-2 w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300"
+                className="mt-1 p-2 w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm bg-gray-950 text-purple-200"
               ></Field>
             </div>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full px-4 py-2 text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="w-full px-4 py-2 text-pink-200 bg-pink-600 rounded-md shadow-sm hover:bg-pink-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               {isSubmitting ? "Submitting..." : "Submit"}
             </button>

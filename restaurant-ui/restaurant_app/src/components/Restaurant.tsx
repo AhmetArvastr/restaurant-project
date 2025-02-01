@@ -35,18 +35,18 @@ function Restaurant({
       <div
           key={restaurant?.id}
           onClick={() => handleClick()}
-          className={`mt-20 mb-10 flex-shrink-0 flex flex-col gap-3 w-80 md:w-96 h-fit bg-gradient-to-br to-orange-600 from-purple-800 rounded-xl shadow-black shadow-xl m-5 p-5 relative text-white ${
+          className={`mt-20 mb-10 flex-shrink-0 flex flex-col gap-3 w-80 md:w-96 h-fit bg-gradient-to-br to-gray-900 from-gray-800 rounded-xl shadow-black shadow-xl m-5 p-5 relative text-pink-400 ${
               handleRestaurantClick !== null
                   ? "cursor-pointer hover:border-2 hover:border-black hover:shadow-2xl hover:scale-105 transition-all duration-300 ease-in-out"
                   : ""
           }`}
       >
-        {restaurant?.score && restaurant?.distance && (
-            <div className="absolute top-[-100px] right-20 bg-gradient-to-br from-purple-700 to-orange-500 text-white rounded-lg shadow-md px-4 py-2">
-              <h3 className="font-bold text-lg">Recommendation Score</h3>
-              <p>{restaurant?.score.toFixed(2)}</p>
-              <h3 className="font-bold text-lg">Distance</h3>
-              <p>{restaurant?.distance.toFixed(2)}</p>
+        {restaurant?.score && (
+            <div className="absolute top-[-100px] right-20 bg-gradient-to-br from-gray-800 to-gray-900 text-white rounded-lg shadow-md px-4 py-2">
+              <h3 className="font-bold text-lg text-purple-300">Recommendation Score</h3>
+              <p className="text-purple-300">{restaurant?.score}</p>
+              <h3 className="font-bold text-lg text-purple-300">Distance</h3>
+              <p className="text-purple-300">{restaurant?.distance}</p>
             </div>
         )}
         <div>{}</div>
@@ -87,7 +87,7 @@ function Restaurant({
         <div className="absolute top-5 flex flex-col items-center justify-center">
           <div
               className={`w-6 h-6 rounded-full ${
-                  restaurant?.status === "ACTIVE" ? "bg-green-500" : "bg-gray-500"
+                  restaurant?.status === "ACTIVE" ? "bg-green-500" : "bg-red-500"
               }`}
           ></div>
           <p className="text-sm font-bold">{restaurant?.status}</p>

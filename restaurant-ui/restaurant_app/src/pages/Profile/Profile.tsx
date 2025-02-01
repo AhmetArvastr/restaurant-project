@@ -34,7 +34,7 @@ function Profile() {
   }, []);
 
   return (
-    <div className="w-screen h-screen flex flex-col items-center pt-5 relative px-20 pb-16 bg-[#f4edcc]">
+    <div className="w-screen h-screen flex flex-col items-center pt-5 relative px-20 pb-16">
       <Navbar />
       <div
         id="innerHomeContainer"
