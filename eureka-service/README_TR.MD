@@ -1,6 +1,6 @@
 # Eureka Servisi
 
-[İngilizce README'ye git](README.md)
+[İngilizce README'ye git](README.MD)
 
 Eureka Servisi, mikroservis mimarimizin anahtar bir bileşenidir. Mikroservislerin kaydını sağlar ve hizmet keşfi sağlar, bu da hizmetlerin yük dengelemesi ve failover için önemlidir.
 

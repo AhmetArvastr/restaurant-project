@@ -1,6 +1,6 @@
-# Dine Experience Uygulaması
+# Restoran Uygulaması
 
-[İngilizce README'ye git](README.md)
+[İngilizce README'ye git](README.MD)
 
 ## Proje Mimarisi ve Sistem Tasarımı
 
