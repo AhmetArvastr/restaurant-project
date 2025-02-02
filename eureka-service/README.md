@@ -1,6 +1,6 @@
 # Eureka Service
 
-[Go to Turkish README](README_TR.MD)
+[Go to Turkish README](README_TR.md)
 
 The Eureka Service is a key component in our microservice architecture. It allows for the registration of microservices and enables service eureka, which is essential for load balancing and failover of services.
 

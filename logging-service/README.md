@@ -1,5 +1,7 @@
 # Logging Service
 
+[Go to Turkish README](README_TR.md)
+
 This is a logging service for a Spring Boot application. It uses Apache Kafka for message consumption and MongoDB for data storage. The service is designed to consume error logs from Kafka, store them in MongoDB, and provide an API for retrieving the logs.
 
 ## Project Structure

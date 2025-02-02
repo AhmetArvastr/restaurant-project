@@ -1,5 +1,7 @@
 # Hata Kayıt Servisi
 
+[İngilizce README'ye git](README.md)
+
 Bu, Spring Boot uygulaması için bir hata kayıt servisidir. Mesaj tüketimi için Apache Kafka ve veri depolama için MongoDB kullanır. Servis, Kafka'dan hata günlüklerini tüketmek, bunları MongoDB'de saklamak ve günlükleri almak için bir API sağlamak üzere tasarlanmıştır.
 
 ## Proje Yapısı
