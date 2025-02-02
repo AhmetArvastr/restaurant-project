@@ -1,6 +1,6 @@
 # Restaurant Application
 
-[Go to Turkish README](README_TR.MD)
+[Go to Turkish README](README_TR.md)
 
 ## Project Architecture and System Design
 

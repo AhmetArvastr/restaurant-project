@@ -1,6 +1,6 @@
 # Restoran Uygulaması
 
-[İngilizce README'ye git](README.MD)
+[İngilizce README'ye git](README.md)
 
 ## Proje Mimarisi ve Sistem Tasarımı
 
