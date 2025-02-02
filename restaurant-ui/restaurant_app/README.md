@@ -74,6 +74,6 @@ Distributed under the MIT License. See [`LICENSE`](LICENSE) for more details.
 </div>
 
 <div align="center">
-  <img src="../../img/spring.png" alt="Logo" width="350" height="300">
+  <img src="../../img/spring.png" alt="Logo" width="220" height="140">
 <h3 align="center">SpringBoot</h3>   
 </div>
