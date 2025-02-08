@@ -1,6 +1,5 @@
 package com.seyidahmetarvas.restaurant.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.seyidahmetarvas.restaurant.model.enums.Status;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,23 +9,19 @@ import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 import org.springframework.data.elasticsearch.annotations.Setting;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Document(indexName = "restaurants")
 @Setting(settingPath = "static/es-settings.json")
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Restaurant implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 4120885544565556119L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
-    @Field(name = "name", type = FieldType.Text)
+    @Field(name = "name", type = FieldType.Text, analyzer = "custom_analyzer", searchAnalyzer = "custom_search")
     private String name;
 
     @Field(name = "address", type = FieldType.Text)

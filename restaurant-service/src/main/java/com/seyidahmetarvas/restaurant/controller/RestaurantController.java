@@ -76,4 +76,16 @@ public class RestaurantController {
         restaurantService.deleteRestaurantById(id);
         return ResponseEntity.ok(RestResponse.empty("Restaurant is deleted successfully"));
     }
+
+    @GetMapping("/filter")
+    public ResponseEntity<RestResponse<List<RestaurantDto>>> searchByRestaurantRate(@RequestParam Double r) {
+        return ResponseEntity.ok(RestResponse.of(restaurantService.searchRestaurantByRestaurantRate(r),
+                "Restaurant listed by restaurantRate successfully: "));
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<RestResponse<List<RestaurantDto>>> searchRestaurantsWithName(@RequestParam String n) {
+        return ResponseEntity.ok(RestResponse.of(restaurantService.autoSuggestRestaurantsByName(n),
+                "Restaurant listed by name successfully"));
+    }
 }

@@ -1,6 +1,5 @@
 package com.seyidahmetarvas.restaurant.service;
 
-/*import com.seyidahmetarvas.restaurant.client.UserClient;*/
 import com.seyidahmetarvas.restaurant.dto.converter.RestaurantDtoConverter;
 import com.seyidahmetarvas.restaurant.dto.requests.RestaurantSaveRequest;
 import com.seyidahmetarvas.restaurant.dto.requests.RestaurantUpdateRequest;
@@ -8,6 +7,7 @@ import com.seyidahmetarvas.restaurant.dto.response.RestaurantDto;
 import com.seyidahmetarvas.restaurant.exception.RestaurantNotFoundException;
 import com.seyidahmetarvas.restaurant.model.Restaurant;
 import com.seyidahmetarvas.restaurant.repository.RestaurantRepository;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -59,5 +59,16 @@ public class RestaurantService {
 
     public void deleteRestaurantById(String id) {
         restaurantRepository.delete(findRestraurantById(id));
+    }
+
+    public List<RestaurantDto> searchRestaurantByRestaurantRate(Double restaurantRate) {
+        return converter.convert(restaurantRepository.searchByRestaurantRate(restaurantRate));
+    }
+
+    public List<RestaurantDto> autoSuggestRestaurantsByName(String name) {
+        return restaurantRepository.autocompleteSearch(name)
+                .stream()
+                .map(converter::convert)
+                .collect(Collectors.toList());
     }
 }

@@ -2,8 +2,6 @@ package com.seyidahmetarvas.restaurant.dto.response;
 
 import com.seyidahmetarvas.restaurant.model.enums.Status;
 
-import java.time.LocalDateTime;
-
 public record RestaurantDto(
         String id,
         String name,
