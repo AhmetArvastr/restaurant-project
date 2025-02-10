@@ -93,6 +93,25 @@ const restaurantRecommendation = async (id: string): Promise<FetchRestaurantReco
     }
 }
 
+const searchRestaurantsByName = async (name: string): Promise<FetchAllRestaurantsResponse> => {
+    try {
+        const response = await axiosInstance.get(`/api/v1/restaurants/search?n=${name}`);
+        return response.data;
+    } catch (e) {
+        console.log(e);
+        throw e;
+    }
+}
+
+const filterRestaurantRate = async (rate: number): Promise<FetchAllRestaurantsResponse> => {
+    try {
+        const response = await axiosInstance.get(`/api/v1/restaurants/filter?r=${rate}`);
+        return response.data as FetchAllRestaurantsResponse;
+    } catch (e) {
+        console.log(e);
+        throw e;
+    }
+}
 
 
-export {fetchAllRestaurants, fetchRestaurantById,restaurantRecommendation}
+export {fetchAllRestaurants, fetchRestaurantById,restaurantRecommendation,searchRestaurantsByName,filterRestaurantRate};

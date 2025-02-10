@@ -33,7 +33,6 @@ function ProfileForm() {
     <div className="w-full flex justify-center items-center">
       <div style={{ width: "80%" }}>
         <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-          {({ values }) => (
             <Form className="bg-gradient-to-r from-gray-800 to-gray-900 p-6 rounded-lg">
               <div className="mb-4">
                 <label htmlFor="name" className="text-pink-400 font-semibold">
@@ -119,7 +118,6 @@ function ProfileForm() {
                 </button>
               </div>
             </Form>
-          )}
         </Formik>
       </div>
     </div>

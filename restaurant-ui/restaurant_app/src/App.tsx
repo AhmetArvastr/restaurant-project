@@ -4,7 +4,8 @@ import Home from "./pages/Home/Home";
 import Profile from "./pages/Profile/Profile";
 import RestaurantDetail from "./pages/RestaurantDetail/RestaurantDetail";
 import "./App.css";
-import Navbar from "./components/Navbar/Navbar.tsx";
+import SearchBar from "./components/SearchBar.tsx"
+import Filter from "./pages/Filter/Filter.tsx"
 
 function App() {
 
@@ -15,9 +16,16 @@ function App() {
                     <Routes>
                         <Route
                             exact
+                            path="restaurants/filter"
+                            element={
+                            <Filter />
+                            }
+                        />
+                        <Route
+                            exact
                             path="/"
                             element={
-                                <Navbar />
+                                <SearchBar />
                             }
                         />
                         <Route
